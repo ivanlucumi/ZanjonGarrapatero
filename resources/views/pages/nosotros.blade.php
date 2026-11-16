@@ -1,0 +1,141 @@
+@extends('layouts.index')
+
+@section('title', 'Nosotros — Consejo Comunitario Zanjón de Garrapatero')
+@section('meta_description', 'Conoce la historia, gobierno propio, principios de autonomía y estructura del Consejo Comunitario Zanjón de Garrapatero en el Cauca.')
+
+@section('content')
+<div class="page-header">
+    <div class="wrap">
+        <nav class="breadcrumbs" aria-label="Ruta de navegación">
+            <a href="{{ route('index') }}"><i class="bi bi-house-door me-1"></i>Inicio</a>
+            <span>/</span>
+            <span>Nosotros</span>
+        </nav>
+        <span class="glass-pill glass-pill-gold mb-2">01 · Identidad &amp; Gobernanza</span>
+        <h1 class="page-header-title serif">Gobierno propio, memoria y futuro colectivo.</h1>
+        <p class="page-header-subtitle">
+            El Consejo Comunitario Zanjón de Garrapatero es una autoridad territorial étnica afrocolombiana que articula familias, cultura, autonomía y el cuidado integral de nuestra tierra ancestral.
+        </p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="wrap">
+        <div class="row g-4 align-items-stretch mb-5">
+            <div class="col-lg-7">
+                <div class="glass-card p-4 p-lg-5 h-100">
+                    <span class="glass-pill glass-pill-blue mb-3">Nuestra Mirada</span>
+                    <h2 class="serif mt-3 mb-4 display-6" style="color: var(--brand-primary);">“La organización nace de la gente y vuelve a la gente.”</h2>
+                    <p class="section-copy">
+                        Construimos una presencia institucional abierta y transparente. Creemos firmemente que el territorio se cuida entre todos, protegiendo tanto las fuentes hídricas como la dignidad de cada familia afro que habita y cultiva la tierra.
+                    </p>
+                    <p class="section-copy">
+                        Nuestra prioridad es la protección de los derechos étnicos y colectivos reconocidos en la Ley 70 de 1993, garantizando que las nuevas generaciones crezcan con orgullo de sus raíces y oportunidades reales de desarrollo territorial.
+                    </p>
+                    <div class="stat-row mt-4">
+                        <div class="stat">
+                            <b>100%</b>
+                            <span>Participación Comunitaria</span>
+                        </div>
+                        <div class="stat">
+                            <b>08</b>
+                            <span>Veredas Articuladas</span>
+                        </div>
+                        <div class="stat">
+                            <b>Ley 70</b>
+                            <span>Marco Étnico de 1993</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="glass-card p-4 p-lg-5 h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <span class="glass-pill glass-pill-gold mb-3">Símbolo Vivo</span>
+                        <div class="text-center my-4">
+                            <img src="{{ asset('logo/logo.webp') }}" alt="Identidad Consejo Comunitario Zanjón de Garrapatero" class="img-fluid rounded-4" style="max-height: 180px; filter: drop-shadow(0 15px 30px rgba(23,45,77,0.15));">
+                        </div>
+                        <h3 class="h4 mb-2" style="color: var(--brand-primary);">Tríada Cromática Institucional</h3>
+                        <p class="small" style="color: var(--text-muted);">
+                            Nuestra identidad se expresa en la solidez del río y el territorio (<strong style="color:var(--brand-primary);">#172D4D</strong>), la dignidad, la memoria y la transparencia (<strong style="color:var(--brand-accent);">#F4F1EA</strong>), y el oro ancestral, la cosecha y la sabiduría de nuestros mayores (<strong style="color:var(--brand-accent);">#B58A45</strong>).
+                        </p>
+                    </div>
+                    <div class="pt-3 border-top" style="border-color: var(--line) !important;">
+                        <a href="{{ route('territorio') }}" class="btn btn-main w-100 justify-content-center">
+                            Explorar Nuestro Territorio <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Pilares de Gobierno Propio --}}
+        <div class="section-header">
+            <span class="kicker">Pilares Fundamentales</span>
+            <h2 class="section-title serif">¿Cómo nos organizamos?</h2>
+            <p class="section-copy">
+                La gobernanza del Consejo se sostiene en cuatro comités de trabajo coordinados democráticamente en asamblea general.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <article class="glass-card p-4 h-100">
+                    <div class="d-inline-flex p-3 rounded-4 mb-3" style="background: rgba(181, 138, 69, 0.15); color: var(--brand-accent);">
+                        <i class="bi bi-diagram-3 fs-3"></i>
+                    </div>
+                    <h3 class="h5 mb-2" style="color: var(--brand-primary);">Junta de Gobierno</h3>
+                    <p class="small mb-0" style="color: var(--text-muted); line-height: 1.6;">
+                        Instancia directiva elegida en asamblea encargada de representar legal y comunitariamente los intereses colectivos del Consejo.
+                    </p>
+                </article>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <article class="glass-card p-4 h-100">
+                    <div class="d-inline-flex p-3 rounded-4 mb-3" style="background: rgba(23, 45, 77, 0.08); color: var(--brand-primary); border: 1px solid var(--line);">
+                        <i class="bi bi-shield-check fs-3"></i>
+                    </div>
+                    <h3 class="h5 mb-2" style="color: var(--brand-primary);">Guardia Cimarrona</h3>
+                    <p class="small mb-0" style="color: var(--text-muted); line-height: 1.6;">
+                        Custodios pacíficos del territorio, garantes de la armonía comunitaria, la convivencia y el cuidado de los linderos ancestrales.
+                    </p>
+                </article>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <article class="glass-card p-4 h-100">
+                    <div class="d-inline-flex p-3 rounded-4 mb-3" style="background: rgba(181, 138, 69, 0.15); color: var(--brand-accent);">
+                        <i class="bi bi-people fs-3"></i>
+                    </div>
+                    <h3 class="h5 mb-2" style="color: var(--brand-primary);">Comité de Mujeres</h3>
+                    <p class="small mb-0" style="color: var(--text-muted); line-height: 1.6;">
+                        Liderazgo en soberanía alimentaria, saberes de medicina tradicional, cuidado de la infancia y transmisión de la memoria oral.
+                    </p>
+                </article>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <article class="glass-card p-4 h-100">
+                    <div class="d-inline-flex p-3 rounded-4 mb-3" style="background: rgba(23, 45, 77, 0.08); color: var(--brand-primary); border: 1px solid var(--line);">
+                        <i class="bi bi-tree fs-3"></i>
+                    </div>
+                    <h3 class="h5 mb-2" style="color: var(--brand-primary);">Tierras y Ambiente</h3>
+                    <p class="small mb-0" style="color: var(--text-muted); line-height: 1.6;">
+                        Supervisión ambiental, monitoreo de cuencas, fomento agroecológico y resolución concertada de deslindes familiares.
+                    </p>
+                </article>
+            </div>
+        </div>
+
+        {{-- Banner de Acción --}}
+        <div class="glass-card p-4 p-lg-5 mt-5 text-center" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(181, 138, 69, 0.15)); border: 1px solid rgba(181, 138, 69, 0.35);">
+            <h3 class="serif display-6 mb-3" style="color: var(--brand-primary);">¿Deseas participar en las asambleas o proponer un proyecto?</h3>
+            <p class="mx-auto" style="max-width: 620px; color: var(--text-muted);">
+                El Consejo Comunitario es de puertas abiertas. Escríbenos o consulta el calendario de asambleas para participar en la toma de decisiones.
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+                <a href="{{ route('actividades') }}" class="btn btn-main">Ver Actividades y Asambleas <i class="bi bi-calendar-event ms-1"></i></a>
+                <a href="{{ route('contacto') }}" class="btn btn-ghost">Canal de Contacto <i class="bi bi-chat-dots ms-1"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection
