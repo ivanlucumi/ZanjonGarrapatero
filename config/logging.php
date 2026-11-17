@@ -137,4 +137,19 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Notificaciones de Errores y Excepciones del Sistema
+    |--------------------------------------------------------------------------
+    |
+    | Define la cuenta de correo y configuraciones de reporte a donde se
+    | remitirán las alertas automáticas con el código y traza de error.
+    |
+    */
+
+    'error_notification' => [
+        'email' => env('ERROR_NOTIFICATION_EMAIL', 'admin@zanjon.gov.co'),
+        'enabled' => env('ERROR_NOTIFICATION_ENABLED', true),
+    ],
+
 ];

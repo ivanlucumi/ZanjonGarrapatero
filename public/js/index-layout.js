@@ -1,29 +1,37 @@
 (() => {
   document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
-    const buttons = document.querySelectorAll('[data-mode-button]');
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const mode = button.dataset.modeButton;
-        body.dataset.mode = mode;
-        buttons.forEach((item) => item.classList.toggle('active', item === button));
-        try {
-          localStorage.setItem('cczg-mode', mode);
-        } catch (_) {
-          // Si el navegador bloquea almacenamiento local, no detiene la navegación.
-        }
-      });
-    });
-
     try {
-      const saved = localStorage.getItem('cczg-mode');
-      if (saved) {
-        body.dataset.mode = saved;
-        buttons.forEach((button) => button.classList.toggle('active', button.dataset.modeButton === saved));
+      localStorage.removeItem('cczg-mode');
+      delete body.dataset.mode;
+    } catch (_) {
+      // Limpieza silenciosa de modo oscuro anterior.
+    }
+
+    // Sincronización dinámica de los 3 colores principales desde theme-colors.css
+    try {
+      const rootStyles = getComputedStyle(document.documentElement);
+      const primaryHex = rootStyles.getPropertyValue('--brand-primary').trim();
+      const secondaryHex = rootStyles.getPropertyValue('--brand-secondary').trim();
+      const accentHex = rootStyles.getPropertyValue('--brand-accent').trim();
+
+      if (primaryHex) {
+        document.querySelectorAll('.triad-val-primary').forEach((el) => {
+          el.textContent = primaryHex.toUpperCase();
+        });
+      }
+      if (secondaryHex) {
+        document.querySelectorAll('.triad-val-secondary').forEach((el) => {
+          el.textContent = secondaryHex.toUpperCase();
+        });
+      }
+      if (accentHex) {
+        document.querySelectorAll('.triad-val-accent').forEach((el) => {
+          el.textContent = accentHex.toUpperCase();
+        });
       }
     } catch (_) {
-      // Estado inicial luminoso por defecto.
+      // Fallback silencioso si no se computan estilos.
     }
 
     const mediaModalElement = document.getElementById('mediaModal');
@@ -149,28 +157,43 @@
       });
     });
 
-    // Coordinación de reproducción de videos de fondo en el carrusel
-    const heroCarousel = document.getElementById('inicioCarousel');
-    if (heroCarousel) {
+    // Coordinación de reproducción de videos de fondo y ciclo continuo suave
+    const heroCarouselElement = document.getElementById('inicioCarousel');
+    if (heroCarouselElement) {
+      if (window.bootstrap?.Carousel) {
+        bootstrap.Carousel.getOrCreateInstance(heroCarouselElement, {
+          interval: 6500,
+          ride: 'carousel',
+          pause: 'hover',
+          wrap: true,
+          touch: true,
+        });
+      }
+
       const playActiveVideo = () => {
-        const activeItem = heroCarousel.querySelector('.carousel-item.active');
+        const activeItem = heroCarouselElement.querySelector('.carousel-item.active');
         const video = activeItem?.querySelector('video.carousel-media');
         if (video) {
           video.play().catch(() => {});
         }
       };
 
-      heroCarousel.addEventListener('slide.bs.carousel', (e) => {
-        const leavingItem = heroCarousel.querySelectorAll('.carousel-item')[e.from];
-        const leavingVideo = leavingItem?.querySelector('video.carousel-media');
-        if (leavingVideo) {
-          leavingVideo.pause();
-        }
-
+      heroCarouselElement.addEventListener('slide.bs.carousel', (e) => {
+        // Al comenzar la transición suave, iniciar reproducción del video entrante
         const enteringVideo = e.relatedTarget?.querySelector('video.carousel-media');
         if (enteringVideo) {
+          try {
+            enteringVideo.currentTime = 0;
+          } catch (_) {}
           enteringVideo.play().catch(() => {});
         }
+      });
+
+      heroCarouselElement.addEventListener('slid.bs.carousel', () => {
+        // Al terminar el fundido, pausar los videos de slides inactivos para liberar recursos
+        heroCarouselElement.querySelectorAll('.carousel-item:not(.active) video.carousel-media').forEach((video) => {
+          video.pause();
+        });
       });
 
       // Asegurar reproducción inicial si el primer slide es un video
@@ -196,6 +219,89 @@
       };
       window.addEventListener('scroll', updateParallax, { passive: true });
       updateParallax();
+    }
+
+    // ========================================================
+    // Transición y Animación Suave de Cards al Scroll (Scroll Reveal)
+    // ========================================================
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      const cardSelectors = [
+        '.glass-card',
+        '.territory',
+        '.activity-card',
+        '.news-card',
+        '.pillar',
+        '.gallery-item',
+        '.login-hero-card',
+        '.video-card',
+        '.stat',
+        '.timeline-card'
+      ];
+
+      const cards = document.querySelectorAll(cardSelectors.join(', '));
+
+      if (cards.length > 0) {
+        const cardObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('scroll-card-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.08,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        cards.forEach((card) => {
+          card.classList.add('scroll-card-reveal');
+
+          // Escalonamiento suave (stagger) para tarjetas dentro del mismo contenedor
+          if (card.parentNode && card.parentNode.children.length > 1) {
+            const index = Array.from(card.parentNode.children).indexOf(card);
+            if (index > 0 && index < 8) {
+              card.style.transitionDelay = `${index * 0.07}s`;
+            }
+          }
+
+          // Si el elemento ya está dentro del viewport inicial, mostrarlo inmediatamente
+          const rect = card.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            card.classList.add('scroll-card-in');
+          } else {
+            cardObserver.observe(card);
+          }
+        });
+      }
+    }
+
+    // Efecto sutil de elevación y blur en navbar al hacer scroll
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+      const checkNavbarScroll = () => {
+        if (window.scrollY > 25) {
+          navbar.classList.add('navbar-scrolled');
+        } else {
+          navbar.classList.remove('navbar-scrolled');
+        }
+      };
+      window.addEventListener('scroll', checkNavbarScroll, { passive: true });
+      checkNavbarScroll();
+    }
+
+    // Efecto sutil de inclinación 3D táctil en la tarjeta orbital (Desktop)
+    const orbitCard = document.querySelector('.orbit-card');
+    if (orbitCard && window.innerWidth >= 992 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const orbitalWrap = orbitCard.closest('.orbital');
+      orbitalWrap?.addEventListener('mousemove', (e) => {
+        const rect = orbitalWrap.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        orbitCard.style.transform = `rotateY(${x * 18 - 9}deg) rotateX(${-y * 18 + 5}deg) scale(1.02)`;
+      });
+      orbitalWrap?.addEventListener('mouseleave', () => {
+        orbitCard.style.transform = 'rotateY(-9deg) rotateX(5deg) scale(1)';
+      });
     }
   });
 })();

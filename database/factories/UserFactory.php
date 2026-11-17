@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,41 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'role' => UserRole::Usuario,
+            'vereda' => 'Zanjón de Garrapatero',
+            'document_number' => fake()->numerify('10########'),
+            'phone' => fake()->numerify('31########'),
         ];
+    }
+
+    /**
+     * Indicate that the user is a super administrator.
+     */
+    public function superAdmin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => UserRole::SuperAdmin,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is an admin of surveys.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => UserRole::Admin,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is a standard comunero.
+     */
+    public function usuario(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => UserRole::Usuario,
+        ]);
     }
 
     /**

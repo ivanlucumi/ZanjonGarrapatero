@@ -114,4 +114,17 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Parámetros de Bloqueo de Inicio de Sesión (Rate Limiting)
+    |--------------------------------------------------------------------------
+    |
+    | Define la cantidad máxima de intentos fallidos antes del bloqueo y la
+    | duración del bloqueo en minutos (1 minuto de penalización por defecto).
+    |
+    */
+
+    'login_max_attempts' => (int) env('AUTH_LOGIN_MAX_ATTEMPTS', 5),
+    'login_decay_minutes' => (int) env('AUTH_LOGIN_DECAY_MINUTES', 1),
+
 ];

@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Middleware\EnforceMaxSessionLifetime;
+use App\Http\Middleware\EnsureUserHasRole;
+use App\Services\ErrorNotificationService;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,10 +16,21 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+            'role' => EnsureUserHasRole::class,
+            'session.lifetime' => EnforceMaxSessionLifetime::class,
+        ]);
+
+        $middleware->appendToGroup('web', EnforceMaxSessionLifetime::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->stopIgnoring(HttpException::class);
+
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
+        $exceptions->report(function (Throwable $e): void {
+            app(ErrorNotificationService::class)->handle($e);
+        });
     })->create();

@@ -115,4 +115,11 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Destinatario de Reportes de Error
+    |--------------------------------------------------------------------------
+    */
+    'error_notification_email' => env('ERROR_NOTIFICATION_EMAIL', 'admin@zanjon.gov.co'),
+
 ];

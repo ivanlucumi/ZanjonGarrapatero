@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -12,9 +15,8 @@ class LoginController extends Controller
     | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
+    | Maneja la autenticación y control de acceso con límite estricto de intentos,
+    | bloqueo temporal de 1 minuto y redirección según rol de usuario.
     |
     */
 
@@ -25,7 +27,21 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin';
+
+    /**
+     * Número máximo de intentos permitidos antes de activar el bloqueo.
+     *
+     * @var int
+     */
+    protected $maxAttempts = 5;
+
+    /**
+     * Duración en minutos del bloqueo temporal tras exceder los intentos (1 minuto).
+     *
+     * @var int
+     */
+    protected $decayMinutes = 1;
 
     /**
      * Create a new controller instance.
@@ -36,5 +52,58 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    /**
+     * Obtener el número máximo de intentos fallidos permitidos.
+     */
+    public function maxAttempts(): int
+    {
+        return (int) config('auth.login_max_attempts', $this->maxAttempts);
+    }
+
+    /**
+     * Obtener la duración en minutos del bloqueo por exceso de intentos (1 minuto).
+     */
+    public function decayMinutes(): int
+    {
+        return (int) config('auth.login_decay_minutes', $this->decayMinutes);
+    }
+
+    /**
+     * Hook ejecutado inmediatamente después de que el usuario se autentica con éxito.
+     *
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        // Registrar el instante de inicio de sesión para el límite de 1 hora
+        $request->session()->put('auth_login_time', now()->timestamp);
+
+        return redirect()->intended($this->redirectPath());
+    }
+
+    /**
+     * Redirige al usuario tras exceder los intentos con respuesta 429 y mensaje descriptivo.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws ValidationException
+     */
+    protected function sendLockoutResponse(Request $request)
+    {
+        $seconds = $this->limiter()->availableIn(
+            $this->throttleKey($request)
+        );
+
+        $message = "Has superado el límite de {$this->maxAttempts()} intentos fallidos de inicio de sesión. Por motivos de seguridad territorial, tu acceso ha sido bloqueado durante 1 minuto. Intenta de nuevo en {$seconds} segundos.";
+
+        // Flash adicional para que SweetAlert2 lo capture inmediatamente
+        session()->flash('error', $message);
+
+        throw ValidationException::withMessages([
+            $this->username() => [$message],
+        ])->status(Response::HTTP_TOO_MANY_REQUESTS);
     }
 }

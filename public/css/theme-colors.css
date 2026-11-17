@@ -1,0 +1,71 @@
+/**
+ * ==============================================================================
+ * PALETA Y CONFIGURACIÓN CENTRAL DE COLORES — CONSEJO COMUNITARIO
+ * ==============================================================================
+ * ARCHIVO ÚNICO DE CONTROL DE COLOR.
+ * Para cambiar los 3 colores en TODO el sitio web (layouts, tarjetas, barras de
+ * navegación, menús laterales, botones, carruseles, modales y formularios),
+ * edita ÚNICAMENTE las siguientes 3 variables principales (HEX y sus canales RGB).
+ * ==============================================================================
+ */
+
+:root {
+   /* ============================================================================
+     1. COLOR PRINCIPAL (Soberanía, Navegación, Títulos, Estructura de Alto Contraste)
+     Por defecto: #172D4D (Azul Profundo Ancestral)
+     ============================================================================ */
+   --brand-primary: #172d4d;
+   --brand-primary-rgb: 23, 45, 77;
+
+   /* ============================================================================
+     2. COLOR SECUNDARIO 1 (Luz, Lienzo Plano Neutro y Fondo de la Página)
+     Color Neutro Plano: #ECE7DF (Lienzo Neutro con Efecto de Relieve)
+     ============================================================================ */
+   --brand-secondary: #ece7df;
+   --brand-secondary-rgb: 236, 231, 223;
+
+   /* ============================================================================
+     3. COLOR SECUNDARIO 2 (Oro Ancestral, Acentos, Botones CTA, Badges y Gotas/Dots)
+     Por defecto: #B58A45 (Oro Cálido / Ocre)
+     ============================================================================ */
+   --brand-accent: #b58a45;
+   --brand-accent-rgb: 181, 138, 69;
+
+   /* ============================================================================
+     FONDO PLANO NEUTRO & VARIABLES DE RELIEVE ("EFECTO DOTA / GOTA")
+     ============================================================================ */
+   --bg-canvas: #ece7df;
+   --bg-canvas-rgb: 236, 231, 223;
+   --relief-groove-shadow: rgba(0, 0, 0, 0.14);
+   --relief-groove-light: rgba(255, 255, 255, 0.95);
+   --relief-dot-glow: rgba(181, 138, 69, 0.55);
+   --card-elevated-bg: rgba(255, 255, 255, 0.92);
+   --card-elevated-shadow: 0 14px 34px rgba(23, 45, 77, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+
+   /* ============================================================================
+     DERIVADOS CALCULADOS AUTOMÁTICAMENTE (NO REQUIEREN EDICIÓN MANUAL)
+     Se recalculan dinámicamente según los 3 colores principales configurados arriba.
+     ============================================================================ */
+   --brand-primary-dark: color-mix(in srgb, var(--brand-primary) 82%, #000000 18%);
+   --brand-primary-light: color-mix(in srgb, var(--brand-primary) 82%, #ffffff 18%);
+   --brand-secondary-light: color-mix(in srgb, var(--brand-secondary) 85%, #ffffff 15%);
+   --brand-secondary-muted: color-mix(in srgb, var(--brand-primary) 65%, var(--brand-secondary) 35%);
+   --brand-accent-hover: color-mix(in srgb, var(--brand-accent) 85%, #ffffff 15%);
+   --brand-accent-glow: rgba(var(--brand-accent-rgb), 0.35);
+
+   /* Variables Semánticas del Sistema */
+   --ink: var(--brand-primary);
+   --paper: var(--brand-secondary);
+   --gold: var(--brand-accent);
+   --text-main: var(--brand-primary);
+   --text-muted: color-mix(in srgb, var(--brand-primary) 68%, #ffffff 32%);
+   --line: rgba(var(--brand-primary-rgb), 0.12);
+   --line-strong: rgba(var(--brand-primary-rgb), 0.22);
+   --shadow: 0 20px 60px rgba(var(--brand-primary-rgb), 0.08);
+
+   /* Primitivas de Glassmorphism vinculadas a los colores */
+   --glass-bg: rgba(255, 255, 255, 0.88);
+   --glass-border: rgba(var(--brand-primary-rgb), 0.12);
+   --glass-border-accent: rgba(var(--brand-accent-rgb), 0.45);
+   --glass-blur: blur(20px);
+}

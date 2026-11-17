@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#172D4D">
-    <meta name="description" content="@yield('meta_description', 'Consejo Comunitario Zanjón de Garrapatero — Diseño 2 con menú lateral izquierdo.')">
+    <meta name="description" content="@yield('meta_description', 'Consejo Comunitario Zanjón de Garrapatero. Diseño con menú lateral izquierdo.')">
 
-    <title>@yield('title', 'Diseño 2 · Menú Lateral — Consejo Comunitario Zanjón de Garrapatero')</title>
+    <title>@yield('title', 'Diseño 2 · Menú lateral · Consejo Comunitario Zanjón de Garrapatero')</title>
 
     <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -16,6 +16,9 @@
     <!-- Bootstrap 5.3 & Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Configuración Central de los 3 Colores Principales -->
+    <link href="{{ asset('css/theme-colors.css') }}" rel="stylesheet">
 
     <!-- Custom Modern Glassmorphic Stylesheet -->
     <link href="{{ asset('css/index-layout.css') }}" rel="stylesheet">
@@ -61,6 +64,9 @@
                     </span>
                 </div>
 
+                {{-- Separador con Efecto Relieve y Dota en Menú Lateral --}}
+                <div class="relief-divider relief-compact" aria-hidden="true"></div>
+
                 <!-- Navigation Links -->
                 <nav>
                     <ul class="sidebar-nav">
@@ -100,6 +106,11 @@
                             </a>
                         </li>
                         <li>
+                            <a class="sidebar-link {{ request()->routeIs('documentos*') ? 'active' : '' }}" href="{{ route('documentos') }}">
+                                <i class="bi bi-file-earmark-text"></i> Documentos
+                            </a>
+                        </li>
+                        <li>
                             <a class="sidebar-link sidebar-cta {{ request()->routeIs('contacto') ? 'active' : '' }}" href="{{ route('contacto') }}">
                                 <i class="bi bi-chat-square-dots"></i> Contáctanos
                             </a>
@@ -108,6 +119,9 @@
                 </nav>
             </div>
 
+            {{-- Separador con Efecto Relieve y Dota en Menú Lateral --}}
+            <div class="relief-divider relief-compact" aria-hidden="true"></div>
+
             <!-- Sidebar Footer: Session, Switcher & Rights -->
             <div class="sidebar-footer">
                 @guest
@@ -115,6 +129,9 @@
                         <i class="bi bi-box-arrow-in-right me-2"></i> Ingresar al Portal
                     </a>
                 @else
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-main w-100 justify-content-center mb-2 py-2 small">
+                        <i class="bi bi-speedometer2 me-2"></i> Ir al Panel
+                    </a>
                     <div class="d-flex align-items-center justify-content-between p-2 rounded-3 mb-2" style="background: rgba(255,255,255,0.06); border: 1px solid var(--line);">
                         <div class="d-flex align-items-center gap-2 overflow-hidden">
                             <i class="bi bi-person-circle fs-5" style="color: var(--brand-accent);"></i>
@@ -140,6 +157,9 @@
             <main id="mainContent">
                 @yield('content')
             </main>
+
+            <!-- Separador con Efecto de Relieve y Dota / Gota Central -->
+            <div class="relief-divider" aria-hidden="true"></div>
 
             <!-- Institutional Footer -->
             <footer class="footer">
@@ -170,7 +190,7 @@
                     </div>
                     <div class="border-top pt-3 d-flex justify-content-between gap-3 flex-wrap small" style="border-color: var(--line) !important;">
                         <span>© {{ date('Y') }} Consejo Comunitario Zanjón de Garrapatero. Todos los derechos reservados.</span>
-                        <span>Diseño 2 con Menú Lateral Izquierdo &middot; Glassmorphism &middot; Cauca, Colombia</span>
+                        <span>Plataforma institucional comunitaria · Menú lateral · Cauca, Colombia</span>
                     </div>
                 </div>
             </footer>
@@ -193,6 +213,28 @@
         </div>
     </div>
 
+    <!-- Floating Social Media Bar (Centro-Derecha de la Pantalla con Colores Idénticos) -->
+    <aside class="floating-social-dock" aria-label="Redes sociales comunitarias flotantes">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-fb" title="Facebook Oficial" aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-ig" title="Instagram Oficial" aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://wa.me/573150000000" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-wa" title="WhatsApp Comunitario" aria-label="WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-yt" title="YouTube Oficial" aria-label="YouTube">
+            <i class="bi bi-youtube"></i>
+        </a>
+        <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-x" title="X (Twitter) Oficial" aria-label="X (Twitter)">
+            <i class="bi bi-twitter-x"></i>
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-tt" title="TikTok Oficial" aria-label="TikTok">
+            <i class="bi bi-tiktok"></i>
+        </a>
+    </aside>
+
     <!-- Floating Project Presentation Switcher (Escoger entre Index e Index2) -->
     <aside class="project-switcher" role="region" aria-label="Selector de diseño del proyecto">
         <span class="switcher-tag">
@@ -206,15 +248,10 @@
         </a>
     </aside>
 
-    <!-- Mode Switcher (Luz / Noche) -->
-    <div class="mode-switch" role="group" aria-label="Cambiar estilo de diseño">
-        <button type="button" data-mode-button="luminous" class="active" title="Tema Luminoso (Diseño claro y abierto)">Luz</button>
-        <button type="button" data-mode-button="origin" title="Tema Noche (Diseño oscuro)">Noche</button>
-    </div>
-
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="{{ asset('js/index-layout.js') }}" defer></script>
+    @include('partials.sweetalert')
 
     @stack('scripts')
 </body>

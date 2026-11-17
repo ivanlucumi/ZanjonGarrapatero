@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#172D4D">
-    <meta name="description" content="@yield('meta_description', 'Consejo Comunitario Zanjón de Garrapatero — identidad, territorio, cultura y autonomía comunitaria afro.')">
+    <meta name="description" content="@yield('meta_description', 'Consejo Comunitario Zanjón de Garrapatero. Identidad, territorio, cultura y autonomía comunitaria afro.')">
 
     <title>@yield('title', config('app.name', 'Consejo Comunitario Zanjón de Garrapatero'))</title>
 
@@ -17,6 +17,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
+    <!-- Configuración Central de los 3 Colores Principales -->
+    <link href="{{ asset('css/theme-colors.css') }}" rel="stylesheet">
+
     <!-- Custom Modern Glassmorphic Stylesheet -->
     <link href="{{ asset('css/index-layout.css') }}" rel="stylesheet">
 
@@ -26,15 +29,7 @@
     <!-- Ambient Background Lighting -->
     <div class="ambient" aria-hidden="true"></div>
 
-    <!-- Topline Info Bar -->
-    <div class="topline">
-        <div class="wrap d-flex justify-content-between flex-wrap gap-2 align-items-center">
-            <span><span class="dot"></span>Identidad · Territorio · Autonomía Afro</span>
-            <span>Consejo Comunitario · {{ date('Y') }} · <a href="{{ route('index2') }}" style="color: var(--brand-accent); font-weight: 700;"><i class="bi bi-layout-sidebar-reverse me-1"></i>Ver Diseño 2 (Lateral)</a></span>
-        </div>
-    </div>
-
-    <!-- Main Navigation Header -->
+    <!-- Main Navigation Header (Solo Navbar Azul Institucional #172D4D) -->
     <nav class="navbar navbar-expand-lg" aria-label="Navegación principal">
         <div class="wrap w-100">
             <div class="d-flex align-items-center justify-content-between">
@@ -87,6 +82,12 @@
                             Video
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('documentos*') ? 'active' : '' }}" href="{{ route('documentos') }}">
+                            Documentos
+                        </a>
+                    </li>
+
                     <li class="nav-item ms-lg-2">
                         <a class="nav-link nav-cta {{ request()->routeIs('contacto') ? 'active' : '' }}" href="{{ route('contacto') }}">
                             Contáctanos <i class="bi bi-arrow-up-right ms-1"></i>
@@ -96,7 +97,7 @@
                     @if (Route::has('login'))
                         @auth
                             <li class="nav-item ms-lg-2">
-                                <a class="nav-link" href="{{ route('home') }}" title="Ir al Panel">
+                                <a class="nav-link" href="{{ route('admin.dashboard') }}" title="Ir al Panel de Gobierno">
                                     <i class="bi bi-person-circle me-1"></i>{{ Auth::user()->name }}
                                 </a>
                             </li>
@@ -134,6 +135,9 @@
         </div>
     </div>
 
+    <!-- Separador con Efecto de Relieve y Dota / Gota Central -->
+    <div class="relief-divider" aria-hidden="true"></div>
+
     <!-- Institutional Footer -->
     <footer class="footer">
         <div class="wrap">
@@ -162,10 +166,32 @@
             </div>
             <div class="border-top pt-3 d-flex justify-content-between gap-3 flex-wrap small" style="border-color: var(--line) !important;">
                 <span>© {{ date('Y') }} Consejo Comunitario Zanjón de Garrapatero. Todos los derechos reservados.</span>
-                <span>Plataforma comunitaria con diseño Glassmorphism · Cauca, Colombia</span>
+                <span>Plataforma institucional comunitaria · Cauca, Colombia</span>
             </div>
         </div>
     </footer>
+
+    <!-- Floating Social Media Bar (Centro-Derecha de la Pantalla con Colores Idénticos) -->
+    <aside class="floating-social-dock" aria-label="Redes sociales comunitarias flotantes">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-fb" title="Facebook Oficial" aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-ig" title="Instagram Oficial" aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://wa.me/573150000000" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-wa" title="WhatsApp Comunitario" aria-label="WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-yt" title="YouTube Oficial" aria-label="YouTube">
+            <i class="bi bi-youtube"></i>
+        </a>
+        <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-x" title="X (Twitter) Oficial" aria-label="X (Twitter)">
+            <i class="bi bi-twitter-x"></i>
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-tt" title="TikTok Oficial" aria-label="TikTok">
+            <i class="bi bi-tiktok"></i>
+        </a>
+    </aside>
 
     <!-- Floating Project Presentation Switcher (Escoger entre Index e Index2) -->
     <aside class="project-switcher" role="region" aria-label="Selector de diseño del proyecto">
@@ -180,15 +206,10 @@
         </a>
     </aside>
 
-    <!-- Mode Switcher (Luz / Noche) -->
-    <div class="mode-switch" role="group" aria-label="Cambiar estilo de diseño">
-        <button type="button" data-mode-button="luminous" class="active" title="Tema Luminoso (Diseño claro y abierto)">Luz</button>
-        <button type="button" data-mode-button="origin" title="Tema Noche (Diseño oscuro)">Noche</button>
-    </div>
-
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="{{ asset('js/index-layout.js') }}" defer></script>
+    @include('partials.sweetalert')
 
     @stack('scripts')
 </body>

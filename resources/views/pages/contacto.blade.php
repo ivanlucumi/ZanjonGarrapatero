@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'Contacto & Censo — Consejo Comunitario Zanjón de Garrapatero')
+@section('title', 'Contacto y censo | Consejo Comunitario Zanjón de Garrapatero')
 @section('meta_description', 'Comunícate con la autoridad étnica del Consejo Comunitario Zanjón de Garrapatero o solicita registro en el censo comunitario afrocolombiano.')
 
 @section('content')
@@ -11,7 +11,7 @@
             <span>/</span>
             <span>Contacto</span>
         </nav>
-        <span class="glass-pill glass-pill-gold mb-2">07 · Atención Comunitaria &amp; Padrón</span>
+        <span class="glass-pill glass-pill-gold mb-2">07 · Atención comunitaria y censo</span>
         <h1 class="page-header-title serif">Hablemos del territorio.</h1>
         <p class="page-header-subtitle">
             Canales institucionales para trámites de avales, inscripción en el censo ampliado, comunicación con la Guardia Cimarrona y diálogo con la autoridad propia.
@@ -19,13 +19,16 @@
     </div>
 </div>
 
+{{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
+<div class="relief-divider" aria-hidden="true"></div>
+
 <section class="section">
     <div class="wrap">
         @if (session('status_success'))
             <div class="alert alert-glass-success mb-4 d-flex align-items-center gap-3" role="alert">
                 <i class="bi bi-check-circle-fill fs-3" style="color: var(--brand-accent);"></i>
                 <div>
-                    <strong class="d-block" style="color: var(--brand-primary);">¡Mensaje enviado con éxito!</strong>
+                    <strong class="d-block" style="color: var(--brand-primary);">Mensaje enviado correctamente.</strong>
                     <span style="color: var(--text-muted);">{{ session('status_success') }}</span>
                 </div>
             </div>
@@ -49,7 +52,7 @@
             {{-- Columna de Información Institucional --}}
             <div class="col-lg-5">
                 <div class="glass-card p-4 p-lg-5 mb-4">
-                    <span class="kicker">Correos Institucionales</span>
+                    <span class="kicker">Correos institucionales</span>
                     <h2 class="serif h4 mt-2 mb-4" style="color: var(--brand-primary);">Canales directos de atención</h2>
 
                     <div class="contact-list">
@@ -105,7 +108,7 @@
             {{-- Formulario Seguro de Contacto / Registro de Interés --}}
             <div class="col-lg-7">
                 <div class="contact-panel">
-                    <span class="glass-pill glass-pill-gold mb-3">Registro de Interés &amp; Censo</span>
+                    <span class="glass-pill glass-pill-gold mb-3">Registro de interés y censo</span>
                     <h2 class="serif display-6 mb-2" style="color: var(--brand-primary);">Escríbenos o solicita información</h2>
                     <p class="mb-4" style="color: var(--text-muted);">
                         Diligencia este formulario para trámites de certificación de censo, solicitudes comunitarias o contacto con los directivos.
@@ -116,7 +119,7 @@
 
                         <div class="row g-3">
                             <div class="col-md-6 form-glass-group">
-                                <label for="name" class="form-glass-label">Nombre Completo <span class="text-danger">*</span></label>
+                                <label for="name" class="form-glass-label">Nombre completo <span class="text-danger">*</span></label>
                                 <input type="text" name="name" id="name" class="form-glass-input @error('name') border-danger @enderror" placeholder="Tu nombre y apellidos" value="{{ old('name') }}" required>
                                 @error('name')
                                     <div class="form-glass-feedback">{{ $message }}</div>
