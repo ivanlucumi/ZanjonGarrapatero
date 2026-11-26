@@ -1,3 +1,5 @@
+DirectoryIndex index.php index.html
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
@@ -6,9 +8,23 @@
     RewriteEngine On
 
     # Proteger archivos sensibles si el DocumentRoot apunta a la raíz del proyecto
-    RewriteRule ^(\.env|\.git|composer\.json|composer\.lock|artisan|phpunit\.xml|package\.json) - [F,L,NC]
+    RewriteRule ^(\.env|\.git|composer\.json|composer\.lock|artisan|phpunit\.xml|package\.json|storage/|bootstrap/|database/|app/|resources/|routes/|tests/) - [F,L,NC]
 
-    # Reenviar todas las peticiones hacia la carpeta public/
+    # Pasar cabeceras de autorización y XSRF
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Si el archivo o carpeta existe dentro de public/, servirlo directamente
     RewriteCond %{REQUEST_URI} !^/public/
+    RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d
     RewriteRule ^(.*)$ public/$1 [L]
+
+    # Enviar todas las demás rutas directamente al Front Controller public/index.php
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ public/index.php [L]
 </IfModule>
