@@ -97,6 +97,8 @@ class PublicationController extends Controller
 
         $publication->is_visible = $request->boolean('is_visible', true);
         $publication->published_at = now();
+        $publication->active_from = $validated['active_from'] ?? null;
+        $publication->active_until = $validated['active_until'] ?? null;
         $publication->author_id = $user->id;
         $publication->save();
 
@@ -149,6 +151,8 @@ class PublicationController extends Controller
         }
 
         $publication->is_visible = $request->boolean('is_visible', true);
+        $publication->active_from = $validated['active_from'] ?? null;
+        $publication->active_until = $validated['active_until'] ?? null;
         $publication->save();
 
         AuditService::log(

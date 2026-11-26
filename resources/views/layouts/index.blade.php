@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="theme-color" content="#172D4D">
+    <meta name="theme-color" content="#2D51AD">
     <meta name="description" content="@yield('meta_description', 'Consejo Comunitario Zanjón de Garrapatero. Identidad, territorio, cultura y autonomía comunitaria afro.')">
 
     <title>@yield('title', config('app.name', 'Consejo Comunitario Zanjón de Garrapatero'))</title>
@@ -29,8 +29,8 @@
     <!-- Ambient Background Lighting -->
     <div class="ambient" aria-hidden="true"></div>
 
-    <!-- Main Navigation Header (Solo Navbar Azul Institucional #172D4D) -->
-    <nav class="navbar navbar-expand-lg" aria-label="Navegación principal">
+    <!-- Main Navigation Header (Fondo Blanco Institucional con Hover Efecto Agua) -->
+    <nav class="navbar navbar-expand-lg navbar-white-glass" aria-label="Navegación principal">
         <div class="wrap w-100">
             <div class="d-flex align-items-center justify-content-between">
                 <a class="navbar-brand d-flex align-items-center gap-3" href="{{ route('index') }}">
@@ -40,7 +40,7 @@
                         <small>Consejo comunitario</small>
                     </span>
                 </a>
-                <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú de navegación" style="color: var(--brand-primary);">
                     <i class="bi bi-list fs-2"></i>
                 </button>
             </div>
@@ -95,19 +95,11 @@
                     </li>
 
                     @if (Route::has('login'))
-                        @auth
-                            <li class="nav-item ms-lg-2">
-                                <a class="nav-link" href="{{ route('admin.dashboard') }}" title="Ir al Panel de Gobierno">
-                                    <i class="bi bi-person-circle me-1"></i>{{ Auth::user()->name }}
-                                </a>
-                            </li>
-                        @else
-                            <li class="nav-item ms-lg-2">
-                                <a class="nav-link" href="{{ route('login') }}" title="Acceso de usuarios">
-                                    <i class="bi bi-box-arrow-in-right me-1"></i>Ingresar
-                                </a>
-                            </li>
-                        @endauth
+                        <li class="nav-item ms-lg-2">
+                            <a class="nav-link" href="{{ Auth::check() ? route(Auth::user()->role->dashboardRoute()) : route('login') }}" title="Ingresar al sistema">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Ingresar
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </div>
@@ -190,19 +182,6 @@
         </a>
         <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-tt" title="TikTok Oficial" aria-label="TikTok">
             <i class="bi bi-tiktok"></i>
-        </a>
-    </aside>
-
-    <!-- Floating Project Presentation Switcher (Escoger entre Index e Index2) -->
-    <aside class="project-switcher" role="region" aria-label="Selector de diseño del proyecto">
-        <span class="switcher-tag">
-            <i class="bi bi-layers-half"></i> Diseños:
-        </span>
-        <a href="{{ route('index') }}" class="btn-switch-design {{ request()->routeIs('index') ? 'active' : '' }}" title="Diseño 1 Activo: Barra Superior Tradicional">
-            <i class="bi bi-layout-text-window-reverse"></i> D1: Superior
-        </a>
-        <a href="{{ route('index2') }}" class="btn-switch-design {{ request()->routeIs('index2') ? 'active' : '' }}" title="Cambiar a Diseño 2: Menú Lateral Izquierdo">
-            <i class="bi bi-layout-sidebar-reverse"></i> D2: Lateral
         </a>
     </aside>
 

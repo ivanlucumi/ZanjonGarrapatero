@@ -31,6 +31,8 @@ class StorePublicationRequest extends FormRequest
             'image_url' => ['nullable', 'string', 'max:500'],
             'image_file' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
             'attachment_file' => ['nullable', 'file', 'mimes:pdf,doc,docx,xls,xlsx,zip', 'max:20480'],
+            'active_from' => ['nullable', 'date'],
+            'active_until' => ['nullable', 'date', 'after_or_equal:active_from'],
             'is_visible' => ['nullable', 'boolean'],
         ];
     }

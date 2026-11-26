@@ -7,7 +7,9 @@ use App\Http\Controllers\Admin\BoardMemberController;
 use App\Http\Controllers\Admin\CarouselSlideController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\DocumentController;
+use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\MediaItemController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PublicationController;
 use App\Http\Controllers\Admin\SurveyController;
 use App\Http\Controllers\Admin\TerritoryController;
@@ -141,6 +143,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function ():
         Route::patch('/documents/{id}/restore', [DocumentController::class, 'restore'])->name('documents.restore');
         Route::patch('/documents/{id}/toggle-visibility', [DocumentController::class, 'toggleVisibility'])->name('documents.toggle-visibility');
         Route::get('/documents/{id}/download', [DocumentController::class, 'download'])->name('documents.download');
+
+        // Centro de Correos (Individual, Por Rol, Masivo)
+        Route::get('/emails', [EmailController::class, 'index'])->name('emails.index');
+        Route::get('/emails/create', [EmailController::class, 'create'])->name('emails.create');
+        Route::post('/emails', [EmailController::class, 'store'])->name('emails.store');
+        Route::get('/emails/{id}', [EmailController::class, 'show'])->name('emails.show');
+
+        // Notificaciones en pantalla para administradores (Solicitudes y Correos entrantes)
+        Route::get('/notifications/unread', [NotificationController::class, 'unread'])->name('notifications.unread');
     });
 
     // Super Admin exclusive module ("ve todo": Usuarios, Auditoría y Trazabilidad)

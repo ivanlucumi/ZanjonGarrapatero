@@ -81,7 +81,9 @@ class LoginController extends Controller
         // Registrar el instante de inicio de sesión para el límite de 1 hora
         $request->session()->put('auth_login_time', now()->timestamp);
 
-        return redirect()->intended($this->redirectPath());
+        $routeName = $user->role?->dashboardRoute() ?? 'admin.dashboard';
+
+        return redirect()->intended(route($routeName));
     }
 
     /**

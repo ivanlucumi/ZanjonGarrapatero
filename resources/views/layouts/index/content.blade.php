@@ -1,257 +1,267 @@
-{{-- 1. Hero Carousel Multimedia (Imágenes y Videos para Proyección) --}}
-<section class="hero-carousel" aria-label="Presentación y proyección multimedia destacada">
-    <div id="inicioCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6500" data-bs-pause="hover" data-bs-wrap="true">
-        {{-- Indicadores Glassmorphic Sincronizados con Bootstrap --}}
-        @if(isset($carouselSlides) && $carouselSlides->isNotEmpty())
-            <div class="carousel-indicators carousel-indicators-glass">
-                @foreach($carouselSlides as $idx => $slide)
-                    <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="{{ $idx }}" class="{{ $loop->first ? 'active' : '' }}" aria-current="{{ $loop->first ? 'true' : 'false' }}" aria-label="Proyección {{ $loop->iteration }}: {{ $slide->title }}"></button>
-                @endforeach
-            </div>
-
-            <div class="carousel-inner">
-                @foreach($carouselSlides as $slide)
-                    @if($slide->isTextOnly())
-                        <div class="carousel-item {{ $loop->first ? 'active' : '' }} slide-no-media">
-                            <div class="wrap w-100 position-relative">
-                                <div class="carousel-glass-panel">
-                                    <span class="projection-badge mb-2">
-                                        <span class="dot-live"></span> {{ $slide->badge_text ?? 'Comunicado · Identidad & Organización' }}
-                                    </span>
-                                    <h2 class="serif">{{ $slide->title }}</h2>
-                                    @if($slide->subtitle)<p>{{ $slide->subtitle }}</p>@endif
-                                    <div class="d-flex gap-3 flex-wrap align-items-center">
-                                        @if($slide->primary_button_text)
-                                            <a class="btn btn-main" href="{{ $slide->primary_button_url ?: route('nosotros') }}">
-                                                {{ $slide->primary_button_text }} <i class="bi bi-arrow-right ms-2"></i>
-                                            </a>
-                                        @endif
-                                        @if($slide->secondary_button_text)
-                                            <a class="btn btn-ghost" href="{{ $slide->secondary_button_url ?: route('actualidad') }}">
-                                                {{ $slide->secondary_button_text }}
-                                            </a>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <div class="carousel-item {{ $loop->first ? 'active' : '' }} has-media">
-                            <div class="carousel-media-container">
-                                @if($slide->isVideo())
-                                    <video class="carousel-media" autoplay muted loop playsinline poster="{{ $slide->poster_url }}">
-                                        <source src="{{ $slide->media_url }}" type="video/mp4">
-                                    </video>
-                                @else
-                                    <img src="{{ $slide->media_url }}" alt="{{ $slide->title }}" class="carousel-media" loading="{{ $loop->first ? 'eager' : 'lazy' }}">
-                                @endif
-                                <div class="carousel-overlay"></div>
-                            </div>
-                            <div class="wrap w-100 position-relative">
-                                <div class="carousel-glass-panel">
-                                    <span class="projection-badge mb-2">
-                                        <span class="dot-live"></span> {{ $slide->badge_text ?? ($slide->isVideo() ? 'Proyección · Video en Vivo' : 'Proyección · Imagen del Territorio') }}
-                                    </span>
-                                    @if($loop->first)
-                                        <h1 class="serif">{{ $slide->title }}</h1>
-                                    @else
-                                        <h2 class="serif">{{ $slide->title }}</h2>
-                                    @endif
-                                    @if($slide->subtitle)<p>{{ $slide->subtitle }}</p>@endif
-                                    <div class="d-flex gap-3 flex-wrap align-items-center">
-                                        @if($slide->primary_button_text)
-                                            <a class="btn btn-main" href="{{ $slide->primary_button_url ?: route('nosotros') }}">
-                                                {{ $slide->primary_button_text }} <i class="bi bi-arrow-right ms-2"></i>
-                                            </a>
-                                        @endif
-                                        @if($slide->media_url)
-                                            <button type="button" class="btn-projection" data-media-type="{{ $slide->isVideo() ? 'video' : 'image' }}" data-media-src="{{ $slide->media_url }}" data-media-title="{{ $slide->projection_title ?: $slide->title }}">
-                                                <i class="bi {{ $slide->isVideo() ? 'bi-play-circle-fill' : 'bi-fullscreen' }}" @if($slide->isVideo()) style="color: var(--brand-accent);" @endif></i> {{ $slide->isVideo() ? 'Proyectar Video' : 'Proyectar Imagen' }}
-                                            </button>
-                                        @endif
-                                        @if($slide->secondary_button_text)
-                                            <a class="btn btn-ghost" href="{{ $slide->secondary_button_url }}">
-                                                {{ $slide->secondary_button_text }}
-                                            </a>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                @endforeach
-            </div>
-        @else
-            <div class="carousel-indicators carousel-indicators-glass">
-                <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Proyección 1: Territorio (Imagen)"></button>
-                <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="1" aria-label="Proyección 2: Saberes (Video)"></button>
-                <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="2" aria-label="Comunicado 3: Editorial (Sin video)"></button>
-                <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="3" aria-label="Proyección 4: Guardia (Video)"></button>
-            </div>
-
-            <div class="carousel-inner">
-                {{-- Slide 1: Proyección de Imagen (Territorio y Paisaje Ancestral - Fondo Visible) --}}
-                <div class="carousel-item active has-media">
-                    <div class="carousel-media-container">
-                        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1920&q=85" alt="Paisaje natural del Zanjón de Garrapatero" class="carousel-media" loading="eager">
-                        <div class="carousel-overlay"></div>
-                    </div>
-                    <div class="wrap w-100 position-relative">
-                        <div class="carousel-glass-panel">
-                            <span class="projection-badge mb-2">
-                                <span class="dot-live"></span> Proyección · Imagen del Territorio
-                            </span>
-                            <h1 class="serif">Territorio que se reconoce, comunidad que avanza.</h1>
-                            <p>Una presencia digital soberana para conectar memoria, organización, cultura y participación comunitaria afrocolombiana.</p>
-                            <div class="d-flex gap-3 flex-wrap align-items-center">
-                                <a class="btn btn-main" href="{{ route('nosotros') }}">
-                                    Conocer el Consejo <i class="bi bi-arrow-right ms-2"></i>
-                                </a>
-                                <button type="button" class="btn-projection" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1920&q=85" data-media-title="Paisaje y Cuencas Ancestrales — Zanjón de Garrapatero">
-                                    <i class="bi bi-fullscreen"></i> Proyectar Imagen
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+{{-- 1. Hero Principal Institucional con Efecto de Difusión (Arriba, como en el diseño) --}}
+<section class="hero-diffusion-banner" aria-label="Bienvenida e identidad del Consejo Comunitario">
+    <div class="hero-diffusion-orb orb-1" aria-hidden="true"></div>
+    <div class="hero-diffusion-orb orb-2" aria-hidden="true"></div>
+    <div class="wrap position-relative" style="z-index: 2;">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-9">
+                <div class="eyebrow-light mb-3">
+                    <span class="dot-gold"></span> RAÍCES, TERRITORIO Y COMUNIDAD
                 </div>
-
-                {{-- Slide 2: Proyección de Video (Relatos, Saberes y Vida Comunitaria - Fondo Visible) --}}
-                <div class="carousel-item has-media">
-                    <div class="carousel-media-container">
-                        <video class="carousel-media" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1920&q=85">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
-                        </video>
-                        <div class="carousel-overlay"></div>
-                    </div>
-                    <div class="wrap w-100 position-relative">
-                        <div class="carousel-glass-panel">
-                            <span class="projection-badge mb-2">
-                                <span class="dot-live"></span> Proyección · Video en Vivo
-                            </span>
-                            <h2 class="serif">La voz de la comunidad también construye futuro.</h2>
-                            <p>Noticias, asambleas veredales, proyectos productivos y canales para participar activamente en la vida del territorio.</p>
-                            <div class="d-flex gap-3 flex-wrap align-items-center">
-                                <a class="btn btn-main" href="{{ route('actividades') }}">
-                                    Ver Actividades <i class="bi bi-arrow-right ms-2"></i>
-                                </a>
-                                <button type="button" class="btn-projection" data-media-type="video" data-media-src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-media-title="Relatos y Saberes Comunitarios en Movimiento">
-                                    <i class="bi bi-play-circle-fill" style="color: var(--brand-accent);"></i> Proyectar Video
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <h1 class="hero-diffusion-title">
+                    Nuestra historia nos une, <span class="hero-highlight">nuestro futuro</span> lo construimos juntos.
+                </h1>
+                <p class="hero-diffusion-lead">
+                    Un espacio para compartir nuestra identidad, dar visibilidad al territorio y acercar la información comunitaria a todas las personas.
+                </p>
+                <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+                    <a class="btn btn-main btn-water" href="{{ route('nosotros') }}">
+                        Conoce el Consejo <i class="bi bi-arrow-up-right ms-2"></i>
+                    </a>
+                    <a class="btn btn-glass-light btn-water" href="{{ route('contacto') }}">
+                        Solicitud de censo <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
                 </div>
-
-                {{-- Slide 3: Sin Video ni Imagen (Editorial / Informativo con texto en tono azul del diseño) --}}
-                <div class="carousel-item slide-no-media">
-                    <div class="wrap w-100 position-relative">
-                        <div class="carousel-glass-panel">
-                            <span class="projection-badge mb-2">
-                                <span class="dot-live"></span> Comunicado · Identidad &amp; Organización
-                            </span>
-                            <h2 class="serif">Historias, acuerdos y memoria que construyen autonomía.</h2>
-                            <p>Una presencia institucional transparente para coordinar proyectos productivos, censo étnico y el cuidado colectivo de nuestra gente.</p>
-                            <div class="d-flex gap-3 flex-wrap align-items-center">
-                                <a class="btn btn-main" href="{{ route('nosotros') }}">
-                                    Conocer el Consejo <i class="bi bi-arrow-right ms-2"></i>
-                                </a>
-                                <a class="btn btn-ghost" href="{{ route('actualidad') }}">
-                                    Ver Comunicados <i class="bi bi-newspaper ms-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Slide 4: Proyección de Video (Guardia Cimarrona y Aguas - Fondo Visible) --}}
-                <div class="carousel-item has-media">
-                    <div class="carousel-media-container">
-                        <video class="carousel-media" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1920&q=85">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                        </video>
-                        <div class="carousel-overlay"></div>
-                    </div>
-                    <div class="wrap w-100 position-relative">
-                        <div class="carousel-glass-panel">
-                            <span class="projection-badge mb-2">
-                                <span class="dot-live"></span> Proyección · Guardia y Cuencas
-                            </span>
-                            <h2 class="serif">Cuidado integral de nuestras aguas y linderos ancestrales.</h2>
-                            <p>Recorridos de prevención pacífica, cuidado ambiental y autonomía colectiva en las 8 veredas articuladas.</p>
-                            <div class="d-flex gap-3 flex-wrap align-items-center">
-                                <a class="btn btn-main" href="{{ route('territorio') }}">
-                                    Explorar Veredas <i class="bi bi-compass ms-2"></i>
-                                </a>
-                                <button type="button" class="btn-projection" data-media-type="video" data-media-src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-media-title="Custodia del Territorio y Fuentes Hídricas">
-                                    <i class="bi bi-play-circle-fill" style="color: var(--brand-accent);"></i> Proyectar Video
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="hero-diffusion-tags mt-4">
+                    <i class="bi bi-stars me-2" style="color: var(--brand-accent);"></i>
+                    Identidad cultural &middot; Participación &middot; Información
                 </div>
             </div>
-        @endif
-
-        {{-- Controles Glassmorphic Circulares Flotantes --}}
-        <button class="carousel-control-glass prev" type="button" data-bs-target="#inicioCarousel" data-bs-slide="prev" aria-label="Diapositiva anterior">
-            <i class="bi bi-chevron-left" aria-hidden="true"></i>
-        </button>
-        <button class="carousel-control-glass next" type="button" data-bs-target="#inicioCarousel" data-bs-slide="next" aria-label="Diapositiva siguiente">
-            <i class="bi bi-chevron-right" aria-hidden="true"></i>
-        </button>
-    </div>
-</section>
-
-{{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
-<div class="relief-divider" aria-hidden="true"></div>
-
-{{-- 2. Hero Principal con Logo Orbital --}}
-<section class="hero">
-    <div class="wrap hero-grid">
-        <div>
-            <div class="eyebrow">Cauca · Colombia · Comunidad afro</div>
-            <h1>Un territorio que <em>se reconoce</em> y se proyecta.</h1>
-            <p class="hero-lead">Una plataforma institucional para contar quiénes somos, cuidar la memoria colectiva y conectar las voces del Consejo Comunitario Zanjón de Garrapatero con su gente y con el mundo.</p>
-            <div class="hero-actions">
-                <a class="btn btn-main" href="{{ route('nosotros') }}">
-                    Conocer el Consejo <i class="bi bi-arrow-right ms-1"></i>
-                </a>
-                <a class="btn btn-ghost" href="{{ route('actualidad') }}">
-                    Ver actualidad <i class="bi bi-newspaper ms-1"></i>
-                </a>
-            </div>
-            <div class="hero-note">
-                <div>
-                    <strong>3.131</strong>
-                    registros de referencia
-                </div>
-                <div class="rule"></div>
-                <div>
-                    <strong>08</strong>
-                    territorios identificados
+            <div class="col-lg-3 d-none d-lg-flex justify-content-center">
+                <div class="hero-diffusion-emblem">
+                    <img src="{{ asset('logo/logo.webp') }}" alt="Escudo Consejo Comunitario Zanjón de Garrapatero" width="170" height="170">
                 </div>
             </div>
         </div>
-        <div class="orbital">
-            <div class="orbit-card float">
-                <span class="orbit-dot d1"></span>
-                <span class="orbit-dot d2"></span>
-                <span class="orbit-dot d3"></span>
-                <div class="orbit-logo">
-                    <img src="{{ asset('logo/logo.webp') }}" alt="Identidad visual del Consejo Comunitario Zanjón de Garrapatero" width="220" height="220">
-                </div>
-                <div class="triad-mark" aria-label="Triada cromática institucional #172D4D, #F4F1EA y #B58A45">
-                    <span class="triad-primary" title="#172D4D Principal"></span>
-                    <span class="triad-secondary" title="#F4F1EA Secundario"></span>
-                    <span class="triad-accent" title="#B58A45 Secundario"></span>
-                </div>
-                <div class="triad-key">
-                    <b class="primary"></b> <span class="triad-val-primary">#172D4D</span> <b class="secondary"></b> <span class="triad-val-secondary">#F4F1EA</span> <b class="accent"></b> <span class="triad-val-accent">#B58A45</span>
-                </div>
-                <div class="orbit-caption">
-                    <b>CCZG</b> · símbolo vivo del territorio
-                </div>
+    </div>
+
+    {{-- Efecto de Difusión Suave en la parte inferior hacia el blanco --}}
+    <div class="hero-diffusion-wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+            <path d="M0,32 C360,85 1080,85 1440,32 L1440,90 L0,90 Z" fill="#ffffff"></path>
+        </svg>
+    </div>
+</section>
+
+{{-- Franja Inferior de Información del Consejo Comunitario --}}
+<section class="hero-info-strip" aria-label="Información institucional de referencia">
+    <div class="wrap">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 py-3">
+            <div class="d-flex align-items-center flex-wrap gap-3">
+                <span class="info-strip-label">IDENTIDAD COMUNITARIA</span>
+                <span class="info-strip-pill"><strong class="me-1">3.131</strong> registros de referencia</span>
+                <span class="info-strip-pill"><strong class="me-1">08</strong> territorios identificados</span>
             </div>
+            <div class="d-flex align-items-center gap-2 small text-muted">
+                <span class="triad-dot" style="background: #2D51AD;" title="#2D51AD"></span>
+                <span class="triad-val-primary fw-semibold">#2D51AD</span>
+                <span class="triad-dot border" style="background: #FFFFFF;" title="#FFFFFF"></span>
+                <span class="triad-val-secondary fw-semibold">#FFFFFF</span>
+                <span class="triad-dot" style="background: #F5CD6D;" title="#F5CD6D"></span>
+                <span class="triad-val-accent fw-semibold">#F5CD6D</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- 2. Carrusel Multimedia (En la parte inferior del Hero, con bordes suaves) --}}
+<section class="hero-carousel hero-carousel-below py-4" aria-label="Presentación y proyección multimedia destacada">
+    <div class="wrap">
+        <div id="inicioCarousel" class="carousel slide carousel-fade rounded-4 overflow-hidden shadow-lg" data-bs-ride="carousel" data-bs-interval="6500" data-bs-pause="hover" data-bs-wrap="true">
+            {{-- Indicadores Glassmorphic Sincronizados con Bootstrap --}}
+            @if(isset($carouselSlides) && $carouselSlides->isNotEmpty())
+                <div class="carousel-indicators carousel-indicators-glass">
+                    @foreach($carouselSlides as $idx => $slide)
+                        <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="{{ $idx }}" class="{{ $loop->first ? 'active' : '' }}" aria-current="{{ $loop->first ? 'true' : 'false' }}" aria-label="Proyección {{ $loop->iteration }}: {{ $slide->title }}"></button>
+                    @endforeach
+                </div>
+
+                <div class="carousel-inner">
+                    @foreach($carouselSlides as $slide)
+                        @if($slide->isTextOnly())
+                            <div class="carousel-item {{ $loop->first ? 'active' : '' }} slide-no-media">
+                                <div class="wrap w-100 position-relative">
+                                    <div class="carousel-glass-panel">
+                                        <span class="projection-badge mb-2">
+                                            <span class="dot-live"></span> {{ $slide->badge_text ?? 'Comunicado · Identidad & Organización' }}
+                                        </span>
+                                        <h2 class="serif">{{ $slide->title }}</h2>
+                                        @if($slide->subtitle)<p>{{ $slide->subtitle }}</p>@endif
+                                        <div class="d-flex gap-3 flex-wrap align-items-center">
+                                            @if($slide->primary_button_text)
+                                                <a class="btn btn-main btn-water" href="{{ $slide->primary_button_url ?: route('nosotros') }}">
+                                                    {{ $slide->primary_button_text }} <i class="bi bi-arrow-right ms-2"></i>
+                                                </a>
+                                            @endif
+                                            @if($slide->secondary_button_text)
+                                                <a class="btn btn-ghost btn-water" href="{{ $slide->secondary_button_url ?: route('actualidad') }}">
+                                                    {{ $slide->secondary_button_text }}
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="carousel-item {{ $loop->first ? 'active' : '' }} has-media">
+                                <div class="carousel-media-container">
+                                    @if($slide->isVideo())
+                                        <video class="carousel-media" autoplay muted loop playsinline poster="{{ $slide->poster_url }}">
+                                            <source src="{{ $slide->media_url }}" type="video/mp4">
+                                        </video>
+                                    @else
+                                        <img src="{{ $slide->media_url }}" alt="{{ $slide->title }}" class="carousel-media" loading="{{ $loop->first ? 'eager' : 'lazy' }}">
+                                    @endif
+                                    <div class="carousel-overlay"></div>
+                                </div>
+                                <div class="wrap w-100 position-relative">
+                                    <div class="carousel-glass-panel">
+                                        <span class="projection-badge mb-2">
+                                            <span class="dot-live"></span> {{ $slide->badge_text ?? ($slide->isVideo() ? 'Proyección · Video en Vivo' : 'Proyección · Imagen del Territorio') }}
+                                        </span>
+                                        <h2 class="serif">{{ $slide->title }}</h2>
+                                        @if($slide->subtitle)<p>{{ $slide->subtitle }}</p>@endif
+                                        <div class="d-flex gap-3 flex-wrap align-items-center">
+                                            @if($slide->primary_button_text)
+                                                <a class="btn btn-main btn-water" href="{{ $slide->primary_button_url ?: route('nosotros') }}">
+                                                    {{ $slide->primary_button_text }} <i class="bi bi-arrow-right ms-2"></i>
+                                                </a>
+                                            @endif
+                                            @if($slide->media_url)
+                                                <button type="button" class="btn btn-projection btn-water" data-media-type="{{ $slide->isVideo() ? 'video' : 'image' }}" data-media-src="{{ $slide->media_url }}" data-media-title="{{ $slide->projection_title ?: $slide->title }}">
+                                                    <i class="bi {{ $slide->isVideo() ? 'bi-play-circle-fill' : 'bi-fullscreen' }}" @if($slide->isVideo()) style="color: var(--brand-accent);" @endif></i> {{ $slide->isVideo() ? 'Proyectar Video' : 'Proyectar Imagen' }}
+                                                </button>
+                                            @endif
+                                            @if($slide->secondary_button_text)
+                                                <a class="btn btn-ghost btn-water" href="{{ $slide->secondary_button_url }}">
+                                                    {{ $slide->secondary_button_text }}
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @else
+                <div class="carousel-indicators carousel-indicators-glass">
+                    <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Proyección 1: Territorio (Imagen)"></button>
+                    <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="1" aria-label="Proyección 2: Saberes (Video)"></button>
+                    <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="2" aria-label="Comunicado 3: Editorial (Sin video)"></button>
+                    <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="3" aria-label="Proyección 4: Guardia (Video)"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    {{-- Slide 1: Proyección de Imagen --}}
+                    <div class="carousel-item active has-media">
+                        <div class="carousel-media-container">
+                            <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1920&q=85" alt="Paisaje natural del Zanjón de Garrapatero" class="carousel-media" loading="eager">
+                            <div class="carousel-overlay"></div>
+                        </div>
+                        <div class="wrap w-100 position-relative">
+                            <div class="carousel-glass-panel">
+                                <span class="projection-badge mb-2">
+                                    <span class="dot-live"></span> Proyección · Imagen del Territorio
+                                </span>
+                                <h2 class="serif">Territorio que se reconoce, comunidad que avanza.</h2>
+                                <p>Una presencia digital soberana para conectar memoria, organización, cultura y participación comunitaria afrocolombiana.</p>
+                                <div class="d-flex gap-3 flex-wrap align-items-center">
+                                    <a class="btn btn-main btn-water" href="{{ route('nosotros') }}">
+                                        Conocer el Consejo <i class="bi bi-arrow-right ms-2"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-projection btn-water" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1920&q=85" data-media-title="Paisaje y Cuencas Ancestrales — Zanjón de Garrapatero">
+                                        <i class="bi bi-fullscreen"></i> Proyectar Imagen
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Slide 2: Proyección de Video --}}
+                    <div class="carousel-item has-media">
+                        <div class="carousel-media-container">
+                            <video class="carousel-media" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1920&q=85">
+                                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                            </video>
+                            <div class="carousel-overlay"></div>
+                        </div>
+                        <div class="wrap w-100 position-relative">
+                            <div class="carousel-glass-panel">
+                                <span class="projection-badge mb-2">
+                                    <span class="dot-live"></span> Proyección · Video en Vivo
+                                </span>
+                                <h2 class="serif">La voz de la comunidad también construye futuro.</h2>
+                                <p>Noticias, asambleas veredales, proyectos productivos y canales para participar activamente en la vida del territorio.</p>
+                                <div class="d-flex gap-3 flex-wrap align-items-center">
+                                    <a class="btn btn-main btn-water" href="{{ route('actividades') }}">
+                                        Ver Actividades <i class="bi bi-arrow-right ms-2"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-projection btn-water" data-media-type="video" data-media-src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-media-title="Relatos y Saberes Comunitarios en Movimiento">
+                                        <i class="bi bi-play-circle-fill" style="color: var(--brand-accent);"></i> Proyectar Video
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Slide 3: Sin Video ni Imagen --}}
+                    <div class="carousel-item slide-no-media">
+                        <div class="wrap w-100 position-relative">
+                            <div class="carousel-glass-panel">
+                                <span class="projection-badge mb-2">
+                                    <span class="dot-live"></span> Comunicado · Identidad &amp; Organización
+                                </span>
+                                <h2 class="serif">Historias, acuerdos y memoria que construyen autonomía.</h2>
+                                <p>Una presencia institucional transparente para coordinar proyectos productivos, censo étnico y el cuidado colectivo de nuestra gente.</p>
+                                <div class="d-flex gap-3 flex-wrap align-items-center">
+                                    <a class="btn btn-main btn-water" href="{{ route('nosotros') }}">
+                                        Conocer el Consejo <i class="bi bi-arrow-right ms-2"></i>
+                                    </a>
+                                    <a class="btn btn-ghost btn-water" href="{{ route('actualidad') }}">
+                                        Ver Comunicados <i class="bi bi-newspaper ms-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Slide 4: Proyección de Video --}}
+                    <div class="carousel-item has-media">
+                        <div class="carousel-media-container">
+                            <video class="carousel-media" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1920&q=85">
+                                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                            </video>
+                            <div class="carousel-overlay"></div>
+                        </div>
+                        <div class="wrap w-100 position-relative">
+                            <div class="carousel-glass-panel">
+                                <span class="projection-badge mb-2">
+                                    <span class="dot-live"></span> Proyección · Guardia y Cuencas
+                                </span>
+                                <h2 class="serif">Cuidado integral de nuestras aguas y linderos ancestrales.</h2>
+                                <p>Recorridos de prevención pacífica, cuidado ambiental y autonomía colectiva en las 8 veredas articuladas.</p>
+                                <div class="d-flex gap-3 flex-wrap align-items-center">
+                                    <a class="btn btn-main btn-water" href="{{ route('territorio') }}">
+                                        Explorar Veredas <i class="bi bi-compass ms-2"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-projection btn-water" data-media-type="video" data-media-src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-media-title="Custodia del Territorio y Fuentes Hídricas">
+                                        <i class="bi bi-play-circle-fill" style="color: var(--brand-accent);"></i> Proyectar Video
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            {{-- Controles Glassmorphic Circulares Flotantes --}}
+            <button class="carousel-control-glass prev" type="button" data-bs-target="#inicioCarousel" data-bs-slide="prev" aria-label="Diapositiva anterior">
+                <i class="bi bi-chevron-left" aria-hidden="true"></i>
+            </button>
+            <button class="carousel-control-glass next" type="button" data-bs-target="#inicioCarousel" data-bs-slide="next" aria-label="Diapositiva siguiente">
+                <i class="bi bi-chevron-right" aria-hidden="true"></i>
+            </button>
         </div>
     </div>
 </section>

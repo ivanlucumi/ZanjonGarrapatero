@@ -13,32 +13,34 @@
  */
 
 :root {
-  --admin-primary: #172d4d;
-  --admin-primary-rgb: 23, 45, 77;
-  --admin-canvas: #f7f4ee;
-  --admin-canvas-rgb: 247, 244, 238;
-  --admin-gold: #b58a45;
-  --admin-gold-rgb: 181, 138, 69;
-  --admin-gold-light: #d8af65;
-  --admin-gold-dark: #8c6729;
+  --admin-primary: #4e342e;
+  --admin-primary-rgb: 78, 52, 46;
+  --admin-canvas: #f8f7f5;
+  --admin-canvas-rgb: 248, 247, 245;
+  --admin-gold: #6d4c3d;
+  --admin-gold-rgb: 109, 76, 61;
+  --admin-gold-light: #8d6e63;
+  --admin-gold-dark: #4e342e;
+  --admin-cafe: #6d4c3d;
+  --admin-cafe-soft: rgba(109, 76, 61, 0.08);
 
   /* ============================================================================
-   * VARIABLES DE GLASMORFISMO ULTRA LIGERO & TRANSLÚCIDO
+   * VARIABLES DE GLASMORFISMO BLANCO & CAFÉ SUAVE (SIN SATURACIÓN)
    * ============================================================================ */
-  --glass-bg-subtle: rgba(255, 255, 255, 0.62);
-  --glass-bg-card: rgba(255, 255, 255, 0.72);
-  --glass-bg-card-hover: rgba(255, 255, 255, 0.88);
-  --glass-border: rgba(255, 255, 255, 0.82);
-  --glass-border-subtle: rgba(23, 45, 77, 0.08);
-  --glass-border-gold: rgba(181, 138, 69, 0.28);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.85);
+  --glass-bg-card: rgba(255, 255, 255, 0.95);
+  --glass-bg-card-hover: #ffffff;
+  --glass-border: rgba(109, 76, 61, 0.14);
+  --glass-border-subtle: rgba(109, 76, 61, 0.08);
+  --glass-border-gold: rgba(109, 76, 61, 0.24);
   
-  --glass-blur-sm: blur(10px) saturate(150%);
-  --glass-blur-md: blur(18px) saturate(160%);
-  --glass-blur-lg: blur(28px) saturate(180%);
+  --glass-blur-sm: blur(10px);
+  --glass-blur-md: blur(16px);
+  --glass-blur-lg: blur(24px);
 
-  --glass-shadow-sm: 0 4px 16px rgba(23, 45, 77, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  --glass-shadow-md: 0 12px 34px -6px rgba(23, 45, 77, 0.05), 0 3px 10px -2px rgba(0, 0, 0, 0.02), inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
-  --glass-shadow-hover: 0 20px 48px -8px rgba(23, 45, 77, 0.09), inset 0 2px 3px #ffffff;
+  --glass-shadow-sm: 0 2px 10px rgba(78, 52, 46, 0.04);
+  --glass-shadow-md: 0 8px 24px -4px rgba(78, 52, 46, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+  --glass-shadow-hover: 0 14px 32px -6px rgba(109, 76, 61, 0.12);
 
   --admin-card-bg: var(--glass-bg-card);
   --admin-card-border: var(--glass-border);
@@ -48,14 +50,12 @@
 
 body.admin-body {
   background-color: var(--admin-canvas);
-  color: var(--admin-primary);
+  color: #2c2420;
   font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   min-height: 100vh;
   margin: 0;
   position: relative;
-  background-image: 
-    radial-gradient(circle at 1px 1px, rgba(181, 138, 69, 0.08) 1px, transparent 0);
-  background-size: 32px 32px;
+  background-image: none;
   overflow-x: hidden;
 }
 
@@ -114,15 +114,15 @@ body.admin-body {
 }
 
 /* ==============================================================================
- * MENÚ LATERAL IZQUIERDO (SIDEBAR EN VIDRIO OBSIDIANA TRASLÚCIDO)
+ * MENÚ LATERAL IZQUIERDO (FONDO BLANCO LIMPIO CON ACENTOS Y HOVER CAFÉ)
  * ============================================================================== */
 .admin-sidebar {
   width: 280px;
-  background: rgba(23, 45, 77, 0.84);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: var(--glass-blur-lg);
   -webkit-backdrop-filter: var(--glass-blur-lg);
-  border-right: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 6px 0 32px rgba(23, 45, 77, 0.08);
+  border-right: 1px solid rgba(109, 76, 61, 0.14);
+  box-shadow: 4px 0 24px rgba(78, 52, 46, 0.04);
   position: fixed;
   top: 0;
   left: 0;
@@ -145,19 +145,19 @@ body.admin-body {
 }
 
 .admin-sidebar::-webkit-scrollbar-thumb {
-  background: rgba(181, 138, 69, 0.25);
+  background: rgba(109, 76, 61, 0.22);
   border-radius: 999px;
 }
 
 .admin-sidebar::-webkit-scrollbar-thumb:hover {
-  background: var(--admin-gold);
+  background: #6d4c3d;
 }
 
 /* Cabecera del Sidebar con Logo */
 .admin-sidebar-header {
   padding: 20px 20px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(109, 76, 61, 0.1);
+  background: #ffffff;
 }
 
 .admin-sidebar-brand {
@@ -165,14 +165,14 @@ body.admin-body {
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  color: #ffffff;
+  color: #3e2723;
 }
 
 .admin-sidebar-brand img {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 2px solid var(--admin-gold);
+  border: 2px solid #6d4c3d;
   object-fit: cover;
   background-color: #ffffff;
 }
@@ -182,7 +182,7 @@ body.admin-body {
   font-size: 1.02rem;
   line-height: 1.15;
   letter-spacing: -0.01em;
-  color: #ffffff;
+  color: #3e2723;
   margin: 0;
 }
 
@@ -190,53 +190,51 @@ body.admin-body {
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--admin-gold-light);
+  color: #8d6e63;
   font-weight: 700;
   display: block;
   margin-top: 2px;
 }
 
-/* Ficha del Perfil del Usuario en Vidrio */
+/* Ficha del Perfil del Usuario en Blanco y Café */
 .admin-sidebar-profile {
   padding: 13px 15px;
   margin: 12px 14px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  background: #faf7f5;
+  border: 1px solid rgba(109, 76, 61, 0.14);
+  box-shadow: 0 2px 8px rgba(109, 76, 61, 0.04);
 }
 
 .admin-sidebar-avatar {
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--admin-gold) 0%, var(--admin-gold-dark) 100%);
+  background: linear-gradient(135deg, #6d4c3d 0%, #4e342e 100%);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.15rem;
   flex-shrink: 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 10px rgba(109, 76, 61, 0.2);
 }
 
 .admin-sidebar-user-name {
   font-weight: 700;
   font-size: 0.88rem;
-  color: #ffffff;
+  color: #3e2723;
 }
 
 .admin-sidebar-user-vereda {
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: #8d6e63;
 }
 
 .admin-sidebar-role-badge-row {
   margin-top: 9px;
   padding-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(109, 76, 61, 0.1);
 }
 
 /* Encabezados de Sección del Menú */
@@ -245,7 +243,7 @@ body.admin-body {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 800;
-  color: var(--admin-gold-light);
+  color: #8d6e63;
   padding: 14px 20px 6px;
 }
 
@@ -259,9 +257,9 @@ body.admin-body {
 
 .admin-sidebar-role-btn {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.04);
-  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(109, 76, 61, 0.12);
+  background: #ffffff;
+  color: #5d4037;
   border-radius: 10px;
   padding: 6px 12px;
   font-size: 0.74rem;
@@ -275,18 +273,18 @@ body.admin-body {
 }
 
 .admin-sidebar-role-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(109, 76, 61, 0.08);
+  color: #3e2723;
+  border-color: rgba(109, 76, 61, 0.28);
   transform: translateX(2px);
 }
 
 .admin-sidebar-role-btn.active {
-  background: var(--admin-gold);
-  border-color: var(--admin-gold-light);
+  background: #6d4c3d;
+  border-color: #5d4037;
   color: #ffffff;
   font-weight: 700;
-  box-shadow: 0 2px 10px rgba(181, 138, 69, 0.35);
+  box-shadow: 0 3px 10px rgba(109, 76, 61, 0.24);
 }
 
 /* Navegación y Lista de Enlaces en el Menú Lateral */
@@ -308,29 +306,31 @@ body.admin-body {
   padding: 9px 16px;
   margin: 3px 12px;
   border-radius: 12px;
-  color: rgba(255, 255, 255, 0.82);
+  color: #5d4037;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.88rem;
   border: 1px solid transparent;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
 }
 
 .admin-nav-item:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.08);
+  color: #3e2723;
+  background: rgba(109, 76, 61, 0.09);
+  border-color: rgba(109, 76, 61, 0.2);
   transform: translateX(3px);
 }
 
 .admin-nav-item.active {
-  color: #ffffff;
-  background: linear-gradient(90deg, rgba(181, 138, 69, 0.26) 0%, rgba(181, 138, 69, 0.08) 100%);
-  border-left: 3px solid var(--admin-gold);
-  border-color: rgba(181, 138, 69, 0.35);
-  border-left-color: var(--admin-gold);
+  color: #3e2723;
+  background: linear-gradient(90deg, rgba(109, 76, 61, 0.14) 0%, rgba(109, 76, 61, 0.04) 100%);
+  border-left: 3.5px solid #6d4c3d;
+  border-color: rgba(109, 76, 61, 0.25);
+  border-left-color: #6d4c3d;
   font-weight: 700;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 10px rgba(109, 76, 61, 0.08);
 }
 
 .admin-nav-item.disabled {
@@ -343,21 +343,22 @@ body.admin-body {
   font-size: 1.15rem;
   width: 22px;
   text-align: center;
+  color: #6d4c3d;
 }
 
 /* Pie del Menú Lateral con Cierre de Sesión */
 .admin-sidebar-footer {
   padding: 16px 16px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(109, 76, 61, 0.1);
   margin-top: auto;
-  background: rgba(10, 20, 36, 0.35);
+  background: #faf7f5;
 }
 
 .admin-sidebar-logout-btn {
   width: 100%;
-  background: rgba(220, 53, 69, 0.12);
-  border: 1px solid rgba(220, 53, 69, 0.3);
-  color: #ffa1a1;
+  background: #ffffff;
+  border: 1px solid rgba(220, 53, 69, 0.28);
+  color: #b91c1c;
   border-radius: 12px;
   padding: 9px 14px;
   font-weight: 600;
@@ -379,7 +380,7 @@ body.admin-body {
 
 .admin-sidebar-legal {
   font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: #8d6e63;
   text-align: center;
   margin-top: 10px;
 }
@@ -630,21 +631,39 @@ body.admin-body {
 }
 
 /* ==============================================================================
- * BANNER DE ROL ACTIVO (FROSTED SMOKED GLASS — SIN PESADEZ DE COLOR)
+ * BANNER DE ROL ACTIVO (BLANCO & CAFÉ SUAVE — SIN SATURACIÓN)
  * ============================================================================== */
 .role-hero-banner {
-  background: linear-gradient(135deg, rgba(23, 45, 77, 0.76) 0%, rgba(14, 30, 53, 0.82) 100%);
-  backdrop-filter: var(--glass-blur-lg);
-  -webkit-backdrop-filter: var(--glass-blur-lg);
-  color: #ffffff;
-  border-radius: 22px;
-  padding: 26px 30px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-left: 5px solid var(--admin-gold);
-  box-shadow: 0 16px 40px rgba(23, 45, 77, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.28);
-  margin-bottom: 26px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f3ef 100%);
+  color: #3e2723;
+  border-radius: 20px;
+  padding: 24px 28px;
+  border: 1px solid rgba(109, 76, 61, 0.16);
+  border-left: 5px solid #6d4c3d;
+  box-shadow: 0 10px 28px rgba(78, 52, 46, 0.05);
+  margin-bottom: 24px;
   position: relative;
   overflow: hidden;
+}
+
+.role-hero-banner .text-white {
+  color: #3e2723 !important;
+}
+
+.role-hero-banner .text-white-50 {
+  color: #795548 !important;
+}
+
+.role-hero-banner .btn-outline-light {
+  color: #5d4037 !important;
+  border-color: rgba(109, 76, 61, 0.35) !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+}
+
+.role-hero-banner .btn-outline-light:hover {
+  background: #6d4c3d !important;
+  color: #ffffff !important;
+  border-color: #6d4c3d !important;
 }
 
 .role-hero-banner::after {
@@ -655,7 +674,7 @@ body.admin-body {
   width: 220px;
   height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(181, 138, 69, 0.28) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(109, 76, 61, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -745,60 +764,66 @@ body.admin-body {
   box-shadow: 0 0 10px rgba(181, 138, 69, 0.5);
 }
 
-/* Botones Principales */
+/* Botones Principales (Blanco, Café y Efecto Agua) */
 .btn-admin-gold {
-  background: linear-gradient(135deg, #b58a45 0%, #a07838 100%);
+  background: linear-gradient(135deg, #6d4c3d 0%, #5d4037 100%);
   color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(109, 76, 61, 0.25);
   font-weight: 700;
   border-radius: 12px;
   padding: 9px 18px;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(181, 138, 69, 0.22);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(109, 76, 61, 0.18);
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-admin-gold:hover {
-  background: linear-gradient(135deg, #c49950 0%, #b58a45 100%);
+  background: linear-gradient(135deg, #795548 0%, #6d4c3d 100%);
   color: #ffffff !important;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(181, 138, 69, 0.32);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(109, 76, 61, 0.28);
 }
 
 .btn-admin-primary {
-  background: var(--admin-primary);
+  background: #6d4c3d;
   color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(109, 76, 61, 0.2);
   font-weight: 600;
   border-radius: 12px;
   padding: 9px 18px;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-admin-primary:hover {
-  background: #0f2038;
+  background: #4e342e;
   color: #ffffff !important;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .btn-admin-outline {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(23, 45, 77, 0.15);
-  color: var(--admin-primary);
+  border: 1px solid rgba(109, 76, 61, 0.24);
+  color: #5d4037;
   font-weight: 600;
   border-radius: 12px;
   padding: 8px 16px;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-admin-outline:hover {
-  border-color: var(--admin-gold);
-  color: var(--admin-gold);
-  background: rgba(181, 138, 69, 0.08);
+  border-color: #6d4c3d;
+  color: #3e2723;
+  background: rgba(109, 76, 61, 0.09);
 }
 
 /* ==============================================================================
@@ -821,10 +846,10 @@ body.admin-body {
   }
 
   .admin-mobile-topbar {
-    background: rgba(23, 45, 77, 0.88);
+    background: rgba(255, 255, 255, 0.96);
     backdrop-filter: var(--glass-blur-md);
     -webkit-backdrop-filter: var(--glass-blur-md);
-    border-bottom: 2px solid var(--admin-gold);
+    border-bottom: 1.5px solid rgba(109, 76, 61, 0.22);
     padding: 10px 16px;
     display: flex;
     align-items: center;
@@ -832,7 +857,7 @@ body.admin-body {
     position: sticky;
     top: 0;
     z-index: 1030;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(78, 52, 46, 0.06);
   }
 
   .brand-mark-mini {
@@ -1198,7 +1223,66 @@ body.admin-body {
 }
 
 .admin-btn-cancel:hover {
-  background: rgba(255, 255, 255, 0.85);
-  color: #1e293b;
-  border-color: rgba(23, 45, 77, 0.25);
+  background: rgba(109, 76, 61, 0.08);
+  color: #3e2723;
+  border-color: rgba(109, 76, 61, 0.3);
+}
+
+/* ==============================================================================
+ * GLASMORFISMO Y EFECTO AGUA EN BOTONES DEL PANEL ADMIN
+ * ============================================================================== */
+.admin-body .btn,
+.admin-body .btn-admin-gold,
+.admin-body .btn-admin-primary,
+.admin-body .btn-admin-outline,
+.admin-body .admin-btn-save,
+.admin-body .admin-btn-cancel,
+.admin-body .admin-nav-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-body .btn::after,
+.admin-body .btn-admin-gold::after,
+.admin-body .btn-admin-primary::after,
+.admin-body .btn-admin-outline::after,
+.admin-body .admin-btn-save::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.42) 0%, rgba(109, 76, 61, 0.16) 55%, transparent 75%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.admin-body .btn:hover::after,
+.admin-body .btn-admin-gold:hover::after,
+.admin-body .btn-admin-primary:hover::after,
+.admin-body .btn-admin-outline:hover::after,
+.admin-body .admin-btn-save:hover::after {
+  transform: translate(-50%, -50%) scale(12);
+  opacity: 1;
+}
+
+.admin-water-ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(109, 76, 61, 0.22) 55%, transparent 75%);
+  animation: adminWaterExpand 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: none;
+  z-index: 4;
+}
+
+@keyframes adminWaterExpand {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
 }

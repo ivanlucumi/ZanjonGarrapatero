@@ -80,7 +80,7 @@ class AuthSecurityTest extends TestCase
             'password' => 'claveValida123',
         ]);
 
-        $response->assertRedirect('/admin');
+        $response->assertRedirect(route('admin.surveys.index'));
         $this->assertAuthenticatedAs($user);
         $this->assertNotEmpty(session('auth_login_time'));
     }

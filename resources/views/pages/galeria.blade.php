@@ -24,6 +24,47 @@
 
 <section class="section">
     <div class="wrap">
+        {{-- Carrusel Destacado de Galería --}}
+        @php
+            $carouselPhotos = (isset($images) && $images->isNotEmpty()) ? $images : collect([
+                (object)['file_url' => 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1400&q=85', 'title' => 'Territorio que se cuida y protege', 'caption' => 'Montañas, cuencas hídricas y senderos ancestrales del Zanjón de Garrapatero'],
+                (object)['file_url' => 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=85', 'title' => 'Encuentro y participación democrática', 'caption' => 'Familias y líderes reunidos en asamblea comunitaria'],
+                (object)['file_url' => 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1400&q=85', 'title' => 'Cultura viva y saberes ancestrales', 'caption' => 'Música afro, danza tradicional y memoria colectiva'],
+            ]);
+        @endphp
+
+        <div id="galeriaFeaturedCarousel" class="carousel slide carousel-fade media-showcase-carousel mb-5" data-bs-ride="carousel" data-bs-interval="5500">
+            <div class="carousel-indicators carousel-indicators-glass">
+                @foreach($carouselPhotos as $idx => $photo)
+                    <button type="button" data-bs-target="#galeriaFeaturedCarousel" data-bs-slide-to="{{ $idx }}" class="{{ $loop->first ? 'active' : '' }}" aria-current="{{ $loop->first ? 'true' : 'false' }}" aria-label="Foto {{ $loop->iteration }}"></button>
+                @endforeach
+            </div>
+            <div class="carousel-inner rounded-4 overflow-hidden shadow-lg">
+                @foreach($carouselPhotos as $photo)
+                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                        <div class="media-carousel-frame">
+                            <img src="{{ $photo->file_url }}" alt="{{ $photo->title }}" class="w-100 h-100 object-fit-cover" loading="{{ $loop->first ? 'eager' : 'lazy' }}">
+                            <div class="media-carousel-overlay"></div>
+                            <div class="media-carousel-caption">
+                                <span class="projection-badge mb-2"><span class="dot-live"></span> Fotografía Destacada</span>
+                                <h2 class="serif text-white mb-1">{{ $photo->title }}</h2>
+                                <p class="text-white-50 mb-3 small">{{ $photo->caption ?: $photo->title }}</p>
+                                <button type="button" class="btn btn-glass btn-projection" data-media-type="image" data-media-src="{{ $photo->file_url }}" data-media-title="{{ $photo->title }}">
+                                    <i class="bi bi-fullscreen me-1"></i> Ampliar fotografía
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <button class="carousel-control-glass prev" type="button" data-bs-target="#galeriaFeaturedCarousel" data-bs-slide="prev" aria-label="Anterior fotografía">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="carousel-control-glass next" type="button" data-bs-target="#galeriaFeaturedCarousel" data-bs-slide="next" aria-label="Siguiente fotografía">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
             <div class="d-flex gap-2 flex-wrap" role="group" aria-label="Filtro de fotografías">
                 <span class="glass-pill glass-pill-gold">Todas las fotos</span>

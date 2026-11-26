@@ -235,7 +235,7 @@ class CmsAndAuditTest extends TestCase
             'HTTP_USER_AGENT' => 'TestBrowser/1.0 (Windows)',
         ]);
 
-        $response->assertRedirect('/admin');
+        $response->assertRedirect(route('admin.surveys.index'));
 
         // Check login log was recorded
         $this->assertDatabaseHas('login_logs', [

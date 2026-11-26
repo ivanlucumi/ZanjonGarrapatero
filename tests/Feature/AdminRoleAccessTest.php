@@ -211,7 +211,7 @@ class AdminRoleAccessTest extends TestCase
 
         $response = $this->actingAs($usuario)->get('/home');
 
-        $response->assertRedirect('/admin');
+        $response->assertRedirect(route('admin.surveys.index'));
     }
 
     public function test_admin_layout_renders_with_left_sidebar_navigation(): void
@@ -227,7 +227,8 @@ class AdminRoleAccessTest extends TestCase
         $response->assertSee('admin-sidebar-brand');
         $response->assertSee('admin-sidebar-nav');
         $response->assertSee('admin-main');
-        $response->assertSee('admin-role-switcher-grid');
+        $response->assertDontSee('admin-role-switcher-grid');
+        $response->assertDontSee('Simular Rol (Demo)');
         $response->assertSee('admin-mobile-topbar');
     }
 

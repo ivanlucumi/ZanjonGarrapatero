@@ -70,6 +70,16 @@
                         </div>
 
                         <div class="col-12 col-md-6">
+                            <label for="active_from" class="form-label fw-bold small text-dark">Publicación Visible Desde (Opcional)</label>
+                            <input type="datetime-local" name="active_from" id="active_from" class="form-control rounded-3" value="{{ old('active_from', $activity->active_from ? $activity->active_from->format('Y-m-d\TH:i') : '') }}">
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="active_until" class="form-label fw-bold small text-dark">Publicación Visible Hasta (Opcional)</label>
+                            <input type="datetime-local" name="active_until" id="active_until" class="form-control rounded-3" value="{{ old('active_until', $activity->active_until ? $activity->active_until->format('Y-m-d\TH:i') : '') }}">
+                        </div>
+
+                        <div class="col-12 col-md-6">
                             <label for="status" class="form-label fw-bold small text-dark">Estado del Evento <span class="text-danger">*</span></label>
                             <select name="status" id="status" class="form-select rounded-3" required>
                                 <option value="programada" {{ old('status', $activity->status) == 'programada' ? 'selected' : '' }}>Programada (Próxima)</option>

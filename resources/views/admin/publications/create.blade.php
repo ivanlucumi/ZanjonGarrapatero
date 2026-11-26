@@ -53,8 +53,16 @@
                 <div class="col-12">
                     <x-admin.dropzone name="attachment_file" label="Documento Anexo en PDF o Word (Opcional)" accept=".pdf,.doc,.docx,.xls,.xlsx,.zip" badge="Resolución, acta o comunicado oficial • Máx 20 MB" />
                 </div>
+                <div class="col-md-6">
+                    <label for="active_from" class="form-label fw-bold small text-dark">Visible Desde (Fecha y Hora Opcional)</label>
+                    <input type="datetime-local" name="active_from" id="active_from" class="form-control rounded-3" value="{{ old('active_from') }}">
+                </div>
+                <div class="col-md-6">
+                    <label for="active_until" class="form-label fw-bold small text-dark">Visible Hasta (Fecha y Hora Opcional)</label>
+                    <input type="datetime-local" name="active_until" id="active_until" class="form-control rounded-3" value="{{ old('active_until') }}">
+                </div>
                 <div class="col-12 mt-2">
-                    <x-admin.switch name="is_visible" label="Publicar Inmediatamente en Actualidad" description="El artículo será visible de forma instantánea para la comunidad en la página de inicio." :checked="true" />
+                    <x-admin.switch name="is_visible" label="Publicar Inmediatamente en Actualidad" description="El artículo será visible dentro del rango de fechas activas configurado." :checked="true" />
                 </div>
             </div>
         </x-admin.form-card>

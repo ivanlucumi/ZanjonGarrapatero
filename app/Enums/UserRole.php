@@ -95,4 +95,16 @@ enum UserRole: string
     {
         return $this === self::SuperAdmin;
     }
+
+    /**
+     * Determine the destination route name according to the user's role.
+     */
+    public function dashboardRoute(): string
+    {
+        return match ($this) {
+            self::SuperAdmin => 'admin.dashboard',
+            self::Admin => 'admin.dashboard',
+            self::Usuario => 'admin.surveys.index',
+        };
+    }
 }

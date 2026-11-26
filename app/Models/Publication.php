@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-#[Fillable(['title', 'slug', 'category', 'summary', 'content', 'image_url', 'attachment_url', 'attachment_name', 'attachment_size', 'author_id', 'is_visible', 'published_at'])]
+#[Fillable(['title', 'slug', 'category', 'summary', 'content', 'image_url', 'attachment_url', 'attachment_name', 'attachment_size', 'author_id', 'is_visible', 'published_at', 'active_from', 'active_until'])]
 class Publication extends Model
 {
     use HasFactory, SoftDeletes;
@@ -25,6 +25,8 @@ class Publication extends Model
         return [
             'is_visible' => 'boolean',
             'published_at' => 'datetime',
+            'active_from' => 'datetime',
+            'active_until' => 'datetime',
             'attachment_size' => 'integer',
         ];
     }
@@ -55,12 +57,20 @@ class Publication extends Model
     }
 
     /**
-     * Scope for publicly visible publications.
+     * Scope for publicly visible publications within active date window.
      *
      * @param  Builder<Publication>  $query
      */
     public function scopeVisible(Builder $query): void
     {
-        $query->where('is_visible', true);
+        $now = now();
+
+        $query->where('is_visible', true)
+            ->where(function (Builder $q) use ($now): void {
+                $q->whereNull('active_from')->orWhere('active_from', '<=', $now);
+            })
+            ->where(function (Builder $q) use ($now): void {
+                $q->whereNull('active_until')->orWhere('active_until', '>=', $now);
+            });
     }
 }

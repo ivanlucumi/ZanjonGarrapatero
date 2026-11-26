@@ -122,27 +122,11 @@
             {{-- Separador con Efecto Relieve y Dota en Menú Lateral --}}
             <div class="relief-divider relief-compact" aria-hidden="true"></div>
 
-            <!-- Sidebar Footer: Session, Switcher & Rights -->
+            <!-- Sidebar Footer: Ingresar & Rights -->
             <div class="sidebar-footer">
-                @guest
-                    <a href="{{ route('login') }}" class="btn btn-ghost w-100 justify-content-center mb-2 py-2 small">
-                        <i class="bi bi-box-arrow-in-right me-2"></i> Ingresar al Portal
-                    </a>
-                @else
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-main w-100 justify-content-center mb-2 py-2 small">
-                        <i class="bi bi-speedometer2 me-2"></i> Ir al Panel
-                    </a>
-                    <div class="d-flex align-items-center justify-content-between p-2 rounded-3 mb-2" style="background: rgba(255,255,255,0.06); border: 1px solid var(--line);">
-                        <div class="d-flex align-items-center gap-2 overflow-hidden">
-                            <i class="bi bi-person-circle fs-5" style="color: var(--brand-accent);"></i>
-                            <span class="small text-truncate text-white fw-bold">{{ Auth::user()->name }}</span>
-                        </div>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('sidebar-logout-form').submit();" class="text-danger small" title="Cerrar Sesión">
-                            <i class="bi bi-box-arrow-right fs-5"></i>
-                        </a>
-                        <form id="sidebar-logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-                    </div>
-                @endguest
+                <a href="{{ Auth::check() ? route(Auth::user()->role->dashboardRoute()) : route('login') }}" class="btn btn-ghost w-100 justify-content-center mb-2 py-2 small">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> Ingresar
+                </a>
 
                 <div class="text-center pt-2">
                     <small style="color: rgba(244, 241, 234, 0.6); font-size: 0.72rem;">
@@ -232,19 +216,6 @@
         </a>
         <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-tt" title="TikTok Oficial" aria-label="TikTok">
             <i class="bi bi-tiktok"></i>
-        </a>
-    </aside>
-
-    <!-- Floating Project Presentation Switcher (Escoger entre Index e Index2) -->
-    <aside class="project-switcher" role="region" aria-label="Selector de diseño del proyecto">
-        <span class="switcher-tag">
-            <i class="bi bi-layers-half"></i> Diseños:
-        </span>
-        <a href="{{ route('index') }}" class="btn-switch-design" title="Cambiar a Diseño 1: Barra Superior Tradicional">
-            <i class="bi bi-layout-text-window-reverse"></i> D1: Superior
-        </a>
-        <a href="{{ route('index2') }}" class="btn-switch-design active" title="Diseño 2 Activo: Menú Lateral Izquierdo">
-            <i class="bi bi-layout-sidebar-reverse"></i> D2: Lateral
         </a>
     </aside>
 

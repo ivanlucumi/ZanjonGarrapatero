@@ -82,6 +82,8 @@ class ActivityController extends Controller
         $activity->description = $validated['description'];
         $activity->location = $validated['location'] ?? null;
         $activity->event_date = $validated['event_date'] ?? null;
+        $activity->active_from = $validated['active_from'] ?? null;
+        $activity->active_until = $validated['active_until'] ?? null;
         $activity->status = $validated['status'];
         $activity->is_visible = $request->boolean('is_visible', true);
         $activity->created_by = $user->id;
@@ -123,6 +125,8 @@ class ActivityController extends Controller
         $activity->description = $validated['description'];
         $activity->location = $validated['location'] ?? null;
         $activity->event_date = $validated['event_date'] ?? null;
+        $activity->active_from = $validated['active_from'] ?? null;
+        $activity->active_until = $validated['active_until'] ?? null;
         $activity->status = $validated['status'];
         $activity->is_visible = $request->boolean('is_visible', true);
         $activity->save();

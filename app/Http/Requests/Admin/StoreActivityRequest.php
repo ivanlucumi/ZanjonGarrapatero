@@ -29,6 +29,8 @@ class StoreActivityRequest extends FormRequest
             'description' => ['required', 'string'],
             'location' => ['nullable', 'string', 'max:150'],
             'event_date' => ['nullable', 'date'],
+            'active_from' => ['nullable', 'date'],
+            'active_until' => ['nullable', 'date', 'after_or_equal:active_from'],
             'status' => ['required', 'string', 'max:40'],
             'is_visible' => ['nullable', 'boolean'],
         ];

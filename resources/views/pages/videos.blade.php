@@ -24,6 +24,65 @@
 
 <section class="section">
     <div class="wrap">
+        {{-- Carrusel Destacado de Videos --}}
+        @php
+            $carouselVideos = (isset($videos) && $videos->isNotEmpty()) ? $videos : collect([
+                (object)[
+                    'file_url' => asset('video/actividad-destacada.mp4'),
+                    'thumbnail_url' => 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1400&q=85',
+                    'title' => 'Zanjón de Garrapatero: raíces, resistencia y autonomía',
+                    'caption' => 'Registro audiovisual con mayoras y sabedores de El Palmar y Santa Lucía sobre la historia y defensa del territorio.',
+                    'duration' => '12 min',
+                ],
+                (object)[
+                    'file_url' => asset('video/guardia.mp4'),
+                    'thumbnail_url' => 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1400&q=85',
+                    'title' => 'Recorridos de la Guardia Cimarrona',
+                    'caption' => 'Custodia comunitaria, linderos y ejercicio de soberanía pacífica en el territorio colectivo.',
+                    'duration' => '8 min',
+                ],
+                (object)[
+                    'file_url' => asset('video/cultura.mp4'),
+                    'thumbnail_url' => 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1400&q=85',
+                    'title' => 'Cantos de Buga y Tambores Vivos',
+                    'caption' => 'Ritmos tradicionales y saberes transmitidos por las cantoras del Zanjón de Garrapatero.',
+                    'duration' => '6 min',
+                ],
+            ]);
+        @endphp
+
+        <div id="videosFeaturedCarousel" class="carousel slide carousel-fade media-showcase-carousel mb-5" data-bs-ride="carousel" data-bs-interval="6500">
+            <div class="carousel-indicators carousel-indicators-glass">
+                @foreach($carouselVideos as $idx => $vidItem)
+                    <button type="button" data-bs-target="#videosFeaturedCarousel" data-bs-slide-to="{{ $idx }}" class="{{ $loop->first ? 'active' : '' }}" aria-current="{{ $loop->first ? 'true' : 'false' }}" aria-label="Video {{ $loop->iteration }}"></button>
+                @endforeach
+            </div>
+            <div class="carousel-inner rounded-4 overflow-hidden shadow-lg">
+                @foreach($carouselVideos as $vidItem)
+                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                        <div class="media-carousel-frame">
+                            <img src="{{ $vidItem->thumbnail_url ?: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1400&q=85' }}" alt="{{ $vidItem->title }}" class="w-100 h-100 object-fit-cover" loading="{{ $loop->first ? 'eager' : 'lazy' }}">
+                            <div class="media-carousel-overlay"></div>
+                            <div class="media-carousel-caption">
+                                <span class="projection-badge mb-2"><span class="dot-live"></span> Video Comunitario · {{ $vidItem->duration ?? 'HD' }}</span>
+                                <h2 class="serif text-white mb-2">{{ $vidItem->title }}</h2>
+                                <p class="text-white-50 mb-3" style="max-width: 620px;">{{ $vidItem->caption ?? 'Registro territorial audiovisual.' }}</p>
+                                <button type="button" class="btn btn-main" data-video-src="{{ $vidItem->file_url }}" data-media-title="{{ $vidItem->title }}">
+                                    <i class="bi bi-play-circle-fill me-2"></i> Reproducir Video
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <button class="carousel-control-glass prev" type="button" data-bs-target="#videosFeaturedCarousel" data-bs-slide="prev" aria-label="Video anterior">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="carousel-control-glass next" type="button" data-bs-target="#videosFeaturedCarousel" data-bs-slide="next" aria-label="Siguiente video">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+
         {{-- Video Principal Destacado Luminoso --}}
         <div class="glass-card p-4 p-lg-5 mb-5">
             <div class="row g-4 align-items-center">

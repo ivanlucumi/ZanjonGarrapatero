@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -17,12 +18,12 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return RedirectResponse
+     * Redirect authenticated users to their role-specific destination.
      */
-    public function index()
+    public function index(Request $request): RedirectResponse
     {
-        return redirect()->route('admin.dashboard');
+        $routeName = $request->user()?->role?->dashboardRoute() ?? 'admin.dashboard';
+
+        return redirect()->route($routeName);
     }
 }

@@ -90,15 +90,15 @@
                         </a>
                     </li>
 
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item ms-lg-2">
-                                <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">
-                                    <i class="bi bi-box-arrow-in-right me-1"></i>{{ __('Ingresar') }}
-                                </a>
-                            </li>
-                        @endif
+                    @if (Route::has('login'))
+                        <li class="nav-item ms-lg-2">
+                            <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}" href="{{ Auth::check() ? route(Auth::user()->role->dashboardRoute()) : route('login') }}">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>{{ __('Ingresar') }}
+                            </a>
+                        </li>
+                    @endif
 
+                    @guest
                         @if (Route::has('register'))
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">
@@ -106,27 +106,6 @@
                                 </a>
                             </li>
                         @endif
-                    @else
-                        <li class="nav-item dropdown ms-lg-2">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-person-circle" style="color: var(--brand-accent);"></i> {{ Auth::user()->name }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('home') }}">
-                                    <i class="bi bi-speedometer2 me-2" style="color: var(--brand-accent);"></i>Panel de Usuario
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="bi bi-box-arrow-right me-2 text-danger"></i>{{ __('Cerrar Sesión') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
                     @endguest
                 </ul>
             </div>
@@ -193,19 +172,6 @@
         </a>
         <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-icon-nav social-tt" title="TikTok Oficial" aria-label="TikTok">
             <i class="bi bi-tiktok"></i>
-        </a>
-    </aside>
-
-    <!-- Floating Project Presentation Switcher (Escoger entre Index e Index2) -->
-    <aside class="project-switcher" role="region" aria-label="Selector de diseño del proyecto">
-        <span class="switcher-tag">
-            <i class="bi bi-layers-half"></i> Diseños:
-        </span>
-        <a href="{{ route('index') }}" class="btn-switch-design {{ request()->routeIs('index') ? 'active' : '' }}" title="Ver Diseño 1: Barra Superior Tradicional">
-            <i class="bi bi-layout-text-window-reverse"></i> D1: Superior
-        </a>
-        <a href="{{ route('index2') }}" class="btn-switch-design {{ request()->routeIs('index2') ? 'active' : '' }}" title="Ver Diseño 2: Menú Lateral Izquierdo">
-            <i class="bi bi-layout-sidebar-reverse"></i> D2: Lateral
         </a>
     </aside>
 

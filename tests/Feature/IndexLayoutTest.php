@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Enums\UserRole;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -91,9 +93,9 @@ class IndexLayoutTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertSee('#172D4D');
-        $response->assertSee('#F4F1EA');
-        $response->assertSee('#B58A45');
+        $response->assertSee('#2D51AD');
+        $response->assertSee('#FFFFFF');
+        $response->assertSee('#F5CD6D');
         $response->assertSee('theme-colors.css');
 
         $this->assertFileExists(public_path('css/theme-colors.css'));
@@ -104,9 +106,9 @@ class IndexLayoutTest extends TestCase
 
         $css = file_get_contents(public_path('css/index-layout.css'));
         $this->assertStringContainsString('theme-colors.css', $css);
-        $this->assertStringContainsString('#172d4d', $css);
-        $this->assertStringContainsString('#f4f1ea', $css);
-        $this->assertStringContainsString('#b58a45', $css);
+        $this->assertStringContainsString('#2d51ad', $css);
+        $this->assertStringContainsString('#ffffff', $css);
+        $this->assertStringContainsString('#f5cd6d', $css);
     }
 
     /**
@@ -176,7 +178,9 @@ class IndexLayoutTest extends TestCase
         $login->assertSee('form-glass-input');
         $login->assertSee('logo.webp');
         $login->assertSee('login-split');
-        $login->assertSee(route('index2'));
+        $login->assertDontSee('password123');
+        $login->assertDontSee('Cuentas Demo');
+        $login->assertDontSee(route('index2'));
 
         $register = $this->get(route('register'));
         $register->assertStatus(200);
@@ -196,29 +200,19 @@ class IndexLayoutTest extends TestCase
         $response->assertSee('sidebar-brand');
         $response->assertSee('Menú Lateral');
         $response->assertSee('id="inicioCarousel"', false);
-        $response->assertSee('project-switcher');
+        $response->assertDontSee('project-switcher');
     }
 
     /**
-     * Test that the presentation switcher allows choosing between index and index2.
+     * Test that the presentation switcher and demo credentials are removed from public layouts.
      */
-    public function test_project_switcher_allows_toggling_between_index_and_index2(): void
+    public function test_project_switcher_and_demo_buttons_are_removed(): void
     {
-        // On Design 1 (Top Navbar)
         $d1 = $this->get(route('index'));
         $d1->assertStatus(200);
-        $d1->assertSee(route('index2'));
-        $d1->assertSee('project-switcher');
-        $d1->assertSee('D1: Superior');
-        $d1->assertSee('D2: Lateral');
-
-        // On Design 2 (Left Sidebar)
-        $d2 = $this->get(route('index2'));
-        $d2->assertStatus(200);
-        $d2->assertSee(route('index'));
-        $d2->assertSee('project-switcher');
-        $d2->assertSee('D1: Superior');
-        $d2->assertSee('D2: Lateral');
+        $d1->assertDontSee('project-switcher');
+        $d1->assertDontSee('D1: Superior');
+        $d1->assertDontSee('D2: Lateral');
     }
 
     /**
@@ -226,9 +220,9 @@ class IndexLayoutTest extends TestCase
      */
     public function test_relief_dividers_and_flat_neutral_background_in_both_versions_and_all_views(): void
     {
-        // 1. Verify CSS definition of flat neutral background #ece7df and relief with dota effect
+        // 1. Verify CSS definition of clean white background #ffffff and relief with dota effect
         $themeColors = file_get_contents(public_path('css/theme-colors.css'));
-        $this->assertStringContainsString('#ece7df', $themeColors);
+        $this->assertStringContainsString('#ffffff', $themeColors);
         $this->assertStringContainsString('--relief-groove-shadow', $themeColors);
 
         $css = file_get_contents(public_path('css/index-layout.css'));
@@ -333,5 +327,38 @@ class IndexLayoutTest extends TestCase
         $this->assertStringContainsString('.efecto-gota', $css);
         $this->assertStringContainsString('radial-gradient', $css);
         $this->assertStringContainsString('inset 0 1.5px 3px', $css);
+    }
+
+    /**
+     * Test that authenticated users do not see their info on the index and Ingresar redirects by role.
+     */
+    public function test_index_hides_user_info_and_ingresar_redirects_by_role(): void
+    {
+        $superAdmin = User::factory()->create([
+            'name' => 'Gobernador Oculto En Index',
+            'role' => UserRole::SuperAdmin,
+        ]);
+        $comunero = User::factory()->create([
+            'name' => 'Comunero Oculto En Index',
+            'role' => UserRole::Usuario,
+        ]);
+
+        // 1. Index hides user name even when authenticated and keeps Ingresar button
+        $resSuper = $this->actingAs($superAdmin)->get(route('index'));
+        $resSuper->assertStatus(200);
+        $resSuper->assertDontSee('Gobernador Oculto En Index');
+        $resSuper->assertSee('Ingresar');
+        $resSuper->assertSee(route('admin.dashboard'));
+
+        $resUser = $this->actingAs($comunero)->get(route('index'));
+        $resUser->assertStatus(200);
+        $resUser->assertDontSee('Comunero Oculto En Index');
+        $resUser->assertSee('Ingresar');
+        $resUser->assertSee(route('admin.surveys.index'));
+
+        // 2. Visiting /login or /home redirects directly according to role
+        $this->actingAs($superAdmin)->get(route('login'))->assertRedirect(route('admin.dashboard'));
+        $this->actingAs($comunero)->get(route('login'))->assertRedirect(route('admin.surveys.index'));
+        $this->actingAs($comunero)->get(route('home'))->assertRedirect(route('admin.surveys.index'));
     }
 }

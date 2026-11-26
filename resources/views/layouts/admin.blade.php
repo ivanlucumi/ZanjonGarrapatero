@@ -33,15 +33,15 @@
     <div class="admin-wrapper">
         <!-- Barra Superior Móvil (< 992px) -->
         <header class="admin-mobile-topbar d-lg-none" aria-label="Navegación móvil del panel">
-            <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-2 text-white text-decoration-none">
+            <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-2 text-decoration-none" style="color: #3e2723;">
                 <img src="{{ asset('logo/logo.webp') }}" alt="Logo CCZG" width="36" height="36" class="brand-mark-mini">
                 <div>
-                    <strong class="d-block text-white fs-6 leading-tight">Zanjón de Garrapatero</strong>
-                    <small style="color: var(--admin-gold); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;">Gobierno Comunitario</small>
+                    <strong class="d-block fs-6 leading-tight" style="color: #3e2723;">Zanjón de Garrapatero</strong>
+                    <small style="color: #8d6e63; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;">Gobierno Comunitario</small>
                 </div>
             </a>
-            <button class="btn btn-outline-light border-0 p-2" type="button" id="adminSidebarToggle" aria-label="Abrir menú lateral">
-                <i class="bi bi-list fs-2" style="color: var(--admin-gold);"></i>
+            <button class="btn border-0 p-2" type="button" id="adminSidebarToggle" aria-label="Abrir menú lateral" style="color: #6d4c3d;">
+                <i class="bi bi-list fs-2"></i>
             </button>
         </header>
 
@@ -81,36 +81,6 @@
                         <i class="bi {{ Auth::user()->role->icon() }}"></i> {{ Auth::user()->role->label() }}
                     </span>
                 </div>
-            </div>
-
-            <!-- Selector de Simulación de Roles (Para alternar entre los 3 roles fácilmente en la demo) -->
-            <div class="admin-sidebar-section-header">
-                <i class="bi bi-person-gear text-warning me-1"></i> Simular Rol (Demo):
-            </div>
-            <div class="admin-role-switcher-grid">
-                <form action="{{ route('admin.demo.switch-role') }}" method="POST" class="d-block w-100">
-                    @csrf
-                    <input type="hidden" name="role" value="super_admin">
-                    <button type="submit" class="admin-sidebar-role-btn {{ Auth::user()->isSuperAdmin() ? 'active' : '' }}" title="Super Admin: Ve todo y gestiona usuarios">
-                        <i class="bi bi-shield-shaded"></i> Super Admin
-                    </button>
-                </form>
-
-                <form action="{{ route('admin.demo.switch-role') }}" method="POST" class="d-block w-100">
-                    @csrf
-                    <input type="hidden" name="role" value="admin">
-                    <button type="submit" class="admin-sidebar-role-btn {{ Auth::user()->isAdmin() ? 'active' : '' }}" title="Admin: Gestión de encuestas y censos">
-                        <i class="bi bi-clipboard2-data"></i> Admin Encuestas
-                    </button>
-                </form>
-
-                <form action="{{ route('admin.demo.switch-role') }}" method="POST" class="d-block w-100">
-                    @csrf
-                    <input type="hidden" name="role" value="usuario">
-                    <button type="submit" class="admin-sidebar-role-btn {{ Auth::user()->isUsuario() ? 'active' : '' }}" title="Comunero: Diligencia censos y consulta ficha">
-                        <i class="bi bi-person-check"></i> Comunero
-                    </button>
-                </form>
             </div>
             @endauth
 
@@ -199,6 +169,12 @@
                                 <span>Buzón de Contactos</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.emails.index') }}" class="admin-nav-item {{ request()->routeIs('admin.emails.*') ? 'active' : '' }}">
+                                <i class="bi bi-envelope-paper-fill"></i>
+                                <span>Centro de Correos</span>
+                            </a>
+                        </li>
                     @else
                         <li>
                             <span class="admin-nav-item disabled" title="Requiere rol de Administrador o Super Administrador">
@@ -253,21 +229,14 @@
                     @endif
                 </ul>
 
-                <!-- Sección 4: Portales Públicos -->
-                <div class="admin-sidebar-section-header">Portales Web Públicos</div>
+                <!-- Sección 4: Portal Público -->
+                <div class="admin-sidebar-section-header">Portal Web</div>
                 <ul class="admin-nav-list">
                     <li>
                         <a href="{{ route('index') }}" target="_blank" class="admin-nav-item">
-                            <i class="bi bi-layout-text-window-reverse"></i>
-                            <span>Portal (Diseño 1 Superior)</span>
-                            <i class="bi bi-box-arrow-up-right ms-auto small text-white-50"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('index2') }}" target="_blank" class="admin-nav-item">
-                            <i class="bi bi-layout-sidebar-reverse"></i>
-                            <span>Portal (Diseño 2 Lateral)</span>
-                            <i class="bi bi-box-arrow-up-right ms-auto small text-white-50"></i>
+                            <i class="bi bi-globe2"></i>
+                            <span>Ver Portal Público</span>
+                            <i class="bi bi-box-arrow-up-right ms-auto small text-muted"></i>
                         </a>
                     </li>
                 </ul>
@@ -308,6 +277,24 @@
 
                     @auth
                     <div class="d-flex align-items-center gap-2">
+                        @if(Auth::user()->role->canManageContent())
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-admin-outline position-relative d-inline-flex align-items-center gap-1 py-1 px-2" type="button" id="adminNotifDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Notificaciones de solicitudes y correos">
+                                    <i class="bi bi-bell-fill"></i>
+                                    <span id="adminNotifBadge" class="badge rounded-pill bg-danger d-none" style="font-size: 0.65rem;">0</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-0" aria-labelledby="adminNotifDropdown" style="width: 340px; max-width: 90vw;">
+                                    <div class="p-3 border-bottom d-flex align-items-center justify-content-between" style="background: #faf7f5;">
+                                        <strong class="small text-dark"><i class="bi bi-bell me-1 text-warning"></i> Solicitudes y Correos</strong>
+                                        <a href="{{ route('admin.messages.index') }}" class="small text-decoration-none fw-semibold" style="color: #6d4c3d;">Ver todos</a>
+                                    </div>
+                                    <div id="adminNotifList" class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                        <div class="text-center text-muted small py-3">Sin solicitudes pendientes</div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                         <span class="badge-role {{ Auth::user()->role->badgeClass() }} d-none d-sm-inline-flex" style="font-size: 0.74rem; padding: 4px 12px;">
                             <i class="bi {{ Auth::user()->role->icon() }}"></i> {{ Auth::user()->role->label() }}
                         </span>
@@ -398,9 +385,96 @@
                     }
                 });
             });
+
+            // Efecto Agua (Water Ripple) al hacer clic en botones y navegación del panel
+            document.querySelectorAll('.btn, .btn-admin-gold, .btn-admin-primary, .btn-admin-outline, .admin-btn-save, .admin-btn-cancel, .admin-nav-item').forEach(el => {
+                el.addEventListener('click', function (e) {
+                    const rect = el.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const ripple = document.createElement('span');
+                    ripple.className = 'admin-water-ripple';
+                    ripple.style.width = `${size}px`;
+                    ripple.style.height = `${size}px`;
+                    ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+                    ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+                    el.appendChild(ripple);
+                    ripple.addEventListener('animationend', () => ripple.remove());
+                });
+            });
         });
     </script>
     @include('partials.sweetalert')
+    @auth
+        @if(Auth::user()->role->canManageContent())
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const badge = document.getElementById('adminNotifBadge');
+                    const list = document.getElementById('adminNotifList');
+                    const notifUrl = "{{ route('admin.notifications.unread') }}";
+
+                    const renderNotifications = (data, showToast) => {
+                        if (!badge || !list) return;
+                        const count = Number(data.unread_count || 0);
+                        if (count > 0) {
+                            badge.textContent = count > 99 ? '99+' : count;
+                            badge.classList.remove('d-none');
+                        } else {
+                            badge.classList.add('d-none');
+                        }
+
+                        if (!data.notifications || data.notifications.length === 0) {
+                            list.innerHTML = '<div class="text-center text-muted small py-3">No hay solicitudes pendientes.</div>';
+                        } else {
+                            list.innerHTML = data.notifications.map(item => `
+                                <a href="${item.url}" class="d-block p-2 rounded-3 text-decoration-none border-bottom mb-1" style="transition: background 0.2s;" onmouseover="this.style.background='#faf7f5'" onmouseout="this.style.background='transparent'">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong class="small text-dark">${item.name}</strong>
+                                        <span class="badge bg-light text-secondary border" style="font-size: 0.65rem;">${item.time_ago}</span>
+                                    </div>
+                                    <div class="small text-muted text-truncate">${item.preview}</div>
+                                </a>
+                            `).join('');
+                        }
+
+                        const latestId = Number(data.latest_id || 0);
+                        const lastSeenId = Number(localStorage.getItem('cczg_last_notif_id') || 0);
+                        if (latestId > 0) {
+                            if (showToast && lastSeenId > 0 && latestId > lastSeenId && typeof Swal !== 'undefined') {
+                                const newest = data.notifications[0];
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    icon: 'info',
+                                    title: `Nueva solicitud de ${newest.name}`,
+                                    text: newest.preview,
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Ver',
+                                    confirmButtonColor: '#6d4c3d',
+                                    timer: 8000,
+                                    timerProgressBar: true
+                                }).then((res) => {
+                                    if (res.isConfirmed && newest.url) {
+                                        window.location.href = newest.url;
+                                    }
+                                });
+                            }
+                            localStorage.setItem('cczg_last_notif_id', String(latestId));
+                        }
+                    };
+
+                    const pollNotifications = (showToast = true) => {
+                        fetch(notifUrl, { headers: { 'Accept': 'application/json' } })
+                            .then(r => r.ok ? r.json() : null)
+                            .then(data => { if (data) renderNotifications(data, showToast); })
+                            .catch(() => {});
+                    };
+
+                    pollNotifications(false);
+                    setInterval(() => pollNotifications(true), 20000);
+                });
+            </script>
+        @endif
+    @endauth
     @stack('scripts')
 </body>
 </html>

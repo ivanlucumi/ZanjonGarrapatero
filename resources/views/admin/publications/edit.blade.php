@@ -76,8 +76,17 @@
                     @endif
                 </div>
 
+                <div class="col-md-6">
+                    <label for="active_from" class="form-label fw-bold small text-dark">Visible Desde (Fecha y Hora Opcional)</label>
+                    <input type="datetime-local" name="active_from" id="active_from" class="form-control rounded-3" value="{{ old('active_from', $publication->active_from ? $publication->active_from->format('Y-m-d\TH:i') : '') }}">
+                </div>
+                <div class="col-md-6">
+                    <label for="active_until" class="form-label fw-bold small text-dark">Visible Hasta (Fecha y Hora Opcional)</label>
+                    <input type="datetime-local" name="active_until" id="active_until" class="form-control rounded-3" value="{{ old('active_until', $publication->active_until ? $publication->active_until->format('Y-m-d\TH:i') : '') }}">
+                </div>
+
                 <div class="col-12 mt-2">
-                    <x-admin.switch name="is_visible" label="Publicar Inmediatamente en Actualidad" description="El artículo será visible para la comunidad en la página de inicio." :checked="$publication->is_visible" />
+                    <x-admin.switch name="is_visible" label="Publicar Inmediatamente en Actualidad" description="El artículo será visible dentro del rango de fechas activas configurado." :checked="$publication->is_visible" />
                 </div>
             </div>
         </x-admin.form-card>

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-#[Fillable(['title', 'slug', 'category', 'description', 'location', 'event_date', 'status', 'created_by', 'is_visible'])]
+#[Fillable(['title', 'slug', 'category', 'description', 'location', 'event_date', 'active_from', 'active_until', 'status', 'created_by', 'is_visible'])]
 class Activity extends Model
 {
     use HasFactory, SoftDeletes;
@@ -25,6 +25,8 @@ class Activity extends Model
         return [
             'is_visible' => 'boolean',
             'event_date' => 'datetime',
+            'active_from' => 'datetime',
+            'active_until' => 'datetime',
         ];
     }
 
@@ -51,12 +53,20 @@ class Activity extends Model
     }
 
     /**
-     * Scope for visible activities.
+     * Scope for visible activities within active date window.
      *
      * @param  Builder<Activity>  $query
      */
     public function scopeVisible(Builder $query): void
     {
-        $query->where('is_visible', true);
+        $now = now();
+
+        $query->where('is_visible', true)
+            ->where(function (Builder $q) use ($now): void {
+                $q->whereNull('active_from')->orWhere('active_from', '<=', $now);
+            })
+            ->where(function (Builder $q) use ($now): void {
+                $q->whereNull('active_until')->orWhere('active_until', '>=', $now);
+            });
     }
 }

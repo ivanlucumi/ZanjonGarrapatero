@@ -3,69 +3,70 @@
  * PALETA Y CONFIGURACIÓN CENTRAL DE COLORES — CONSEJO COMUNITARIO
  * ==============================================================================
  * ARCHIVO ÚNICO DE CONTROL DE COLOR.
- * Para cambiar los 3 colores en TODO el sitio web (layouts, tarjetas, barras de
- * navegación, menús laterales, botones, carruseles, modales y formularios),
- * edita ÚNICAMENTE las siguientes 3 variables principales (HEX y sus canales RGB).
+ * - Azul Institucional Claro: #2D51AD
+ * - Blanco / Lienzo Neutro:  #FFFFFF / #F8FAFC
+ * - Café Institucional:      #6D4C3D
+ * - Amarillo / Oro Cálido:   #F5CD6D
  * ==============================================================================
  */
 
 :root {
    /* ============================================================================
-     1. COLOR PRINCIPAL (Soberanía, Navegación, Títulos, Estructura de Alto Contraste)
-     Por defecto: #172D4D (Azul Profundo Ancestral)
+     1. COLOR PRINCIPAL (Azul Institucional Claro #2D51AD)
      ============================================================================ */
-   --brand-primary: #172d4d;
-   --brand-primary-rgb: 23, 45, 77;
+   --brand-primary: #2d51ad;
+   --brand-primary-rgb: 45, 81, 173;
 
    /* ============================================================================
-     2. COLOR SECUNDARIO 1 (Luz, Lienzo Plano Neutro y Fondo de la Página)
-     Color Neutro Plano: #ECE7DF (Lienzo Neutro con Efecto de Relieve)
+     2. COLOR SECUNDARIO 1 (Blanco Puro & Lienzo Limpio)
      ============================================================================ */
-   --brand-secondary: #ece7df;
-   --brand-secondary-rgb: 236, 231, 223;
+   --brand-secondary: #f8fafc;
+   --brand-secondary-rgb: 248, 250, 252;
 
    /* ============================================================================
-     3. COLOR SECUNDARIO 2 (Oro Ancestral, Acentos, Botones CTA, Badges y Gotas/Dots)
-     Por defecto: #B58A45 (Oro Cálido / Ocre)
+     3. COLOR SECUNDARIO 2 (Oro Cálido / Amarillo Acento) & CAFÉ INSTITUCIONAL
      ============================================================================ */
-   --brand-accent: #b58a45;
-   --brand-accent-rgb: 181, 138, 69;
+   --brand-accent: #f5cd6d;
+   --brand-accent-rgb: 245, 205, 109;
+   --brand-cafe: #6d4c3d;
+   --brand-cafe-rgb: 109, 76, 61;
+   --brand-cafe-light: #8d6e63;
+   --brand-cafe-dark: #4e342e;
 
    /* ============================================================================
-     FONDO PLANO NEUTRO & VARIABLES DE RELIEVE ("EFECTO DOTA / GOTA")
+     FONDO NEUTRO & VARIABLES DE RELIEVE
      ============================================================================ */
-   --bg-canvas: #ece7df;
-   --bg-canvas-rgb: 236, 231, 223;
-   --relief-groove-shadow: rgba(0, 0, 0, 0.14);
+   --bg-canvas: #ffffff;
+   --bg-canvas-rgb: 255, 255, 255;
+   --relief-groove-shadow: rgba(45, 81, 173, 0.10);
    --relief-groove-light: rgba(255, 255, 255, 0.95);
-   --relief-dot-glow: rgba(181, 138, 69, 0.55);
-   --card-elevated-bg: rgba(255, 255, 255, 0.92);
-   --card-elevated-shadow: 0 14px 34px rgba(23, 45, 77, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+   --relief-dot-glow: rgba(245, 205, 109, 0.55);
+   --card-elevated-bg: rgba(255, 255, 255, 0.95);
+   --card-elevated-shadow: 0 14px 34px rgba(45, 81, 173, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
 
    /* ============================================================================
-     DERIVADOS CALCULADOS AUTOMÁTICAMENTE (NO REQUIEREN EDICIÓN MANUAL)
-     Se recalculan dinámicamente según los 3 colores principales configurados arriba.
+     DERIVADOS CALCULADOS AUTOMÁTICAMENTE
      ============================================================================ */
-   --brand-primary-dark: color-mix(in srgb, var(--brand-primary) 82%, #000000 18%);
-   --brand-primary-light: color-mix(in srgb, var(--brand-primary) 82%, #ffffff 18%);
-   --brand-secondary-light: color-mix(in srgb, var(--brand-secondary) 85%, #ffffff 15%);
-   --brand-secondary-muted: color-mix(in srgb, var(--brand-primary) 65%, var(--brand-secondary) 35%);
-   --brand-accent-hover: color-mix(in srgb, var(--brand-accent) 85%, #ffffff 15%);
-   --brand-accent-glow: rgba(var(--brand-accent-rgb), 0.35);
+   --brand-primary-dark: #1e3a8a;
+   --brand-primary-light: #476fd1;
+   --brand-secondary-light: #ffffff;
+   --brand-secondary-muted: #64748b;
+   --brand-accent-hover: #eab949;
+   --brand-accent-glow: rgba(var(--brand-accent-rgb), 0.38);
 
    /* Variables Semánticas del Sistema */
-   --ink: var(--brand-primary);
-   --paper: var(--brand-secondary);
+   --ink: #1e293b;
+   --paper: #ffffff;
    --gold: var(--brand-accent);
-   --text-main: var(--brand-primary);
-   --text-muted: color-mix(in srgb, var(--brand-primary) 68%, #ffffff 32%);
+   --text-main: #1e293b;
+   --text-muted: #526071;
    --line: rgba(var(--brand-primary-rgb), 0.12);
    --line-strong: rgba(var(--brand-primary-rgb), 0.22);
    --shadow: 0 20px 60px rgba(var(--brand-primary-rgb), 0.08);
 
-   /* Primitivas de Glassmorphism vinculadas a los colores */
-   --glass-bg: rgba(255, 255, 255, 0.88);
-   --glass-border: rgba(var(--brand-primary-rgb), 0.12);
-   --glass-border-accent: rgba(var(--brand-accent-rgb), 0.45);
-   --glass-blur: blur(20px);
+   /* Primitivas de Glassmorphism */
+   --glass-bg: rgba(255, 255, 255, 0.85);
+   --glass-border: rgba(255, 255, 255, 0.72);
+   --glass-border-accent: rgba(var(--brand-accent-rgb), 0.50);
+   --glass-blur: blur(16px);
 }
