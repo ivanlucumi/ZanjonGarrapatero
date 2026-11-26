@@ -19,17 +19,17 @@ use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+// RUTA DE LIMPIEZA
+Route::get('limpiar', function () {
+    // $php = Artisan::call('up');
+    $php = Artisan::call('optimize:clear');
+    $php6 = Artisan::call('config:cache');
+    $php1 = Artisan::call('view:clear');
+    $php2 = Artisan::call('cache:clear');
+    $php3 = Artisan::call('route:clear');
+    $php4 = Artisan::call('optimize:clear');
 
-//RUTA DE LIMPIEZA
-Route::get('limpiar', function(){
-    //$php = Artisan::call('up');
-   $php = Artisan::call('optimize:clear');
-   $php6 = Artisan::call('config:cache'); 
-   $php1 = Artisan::call('view:clear');
-   $php2 = Artisan::call('cache:clear');
-   $php3 = Artisan::call('route:clear');
-   $php4 = Artisan::call('optimize:clear');
-   return Redirect::to('/'); 
+    return Redirect::to('/');
 });
 
 /*
@@ -50,6 +50,7 @@ Route::get('/videos', [PageController::class, 'videos'])->name('videos');
 Route::get('/documentos', [PageController::class, 'documentos'])->name('documentos');
 Route::get('/documentos/{slug}/descargar', [PageController::class, 'downloadDocument'])->name('documentos.download');
 Route::get('/contacto', [PageController::class, 'contacto'])->name('contacto');
+Route::get('/sitemap.xml', [PageController::class, 'sitemap'])->name('sitemap');
 Route::post('/contacto', [PageController::class, 'submitContact'])
     ->name('contacto.store')
     ->middleware('throttle:6,1');

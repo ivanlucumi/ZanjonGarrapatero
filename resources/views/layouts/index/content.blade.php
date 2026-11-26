@@ -269,47 +269,117 @@
 {{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
 <div class="relief-divider" aria-hidden="true"></div>
 
-{{-- 3. Resumen Nosotros --}}
-<section class="section section-light">
+{{-- 3. Nuestra Esencia (Quiénes Somos, Misión y Visión — Estilo Vista2) --}}
+<section class="section section-light" id="quienes-somos">
     <div class="wrap">
-        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
-            <div class="section-header mb-0">
-                <div class="kicker">01 · Quiénes somos</div>
-                <h2 class="section-title serif">Gobierno propio, memoria y futuro.</h2>
-                <p class="section-copy">El Consejo Comunitario Zanjón de Garrapatero es una organización territorial afro que articula comunidad, cultura, participación y cuidado del territorio.</p>
+        <div class="row align-items-end g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="kicker">01 · Nuestra esencia</div>
+                <h2 class="section-title mb-0">Un consejo, una historia<br><span class="text-brown">que sigue creciendo.</span></h2>
             </div>
-            <a href="{{ route('nosotros') }}" class="btn btn-main">
-                Página Nosotros <i class="bi bi-arrow-right ms-1"></i>
-            </a>
+            <div class="col-lg-6">
+                <p class="section-copy mb-3">
+                    El Consejo Comunitario Zanjón de Garrapatero es una organización territorial afrocolombiana que articula comunidad, cultura, participación y cuidado integral del territorio.
+                </p>
+                <a href="{{ route('nosotros') }}" class="read-more">Conocer historia, autoridades y gobernanza <i class="bi bi-arrow-up-right"></i></a>
+            </div>
         </div>
-        <div class="row g-4 align-items-stretch">
-            <div class="col-lg-7">
-                <div class="p-4 p-lg-5 rounded-4 h-100" style="background: rgba(23, 45, 77, 0.05); border: 1px solid rgba(23, 45, 77, 0.1);">
-                    <div class="kicker">Nuestra mirada</div>
-                    <h3 class="serif display-6 mt-3">“La organización nace de la gente y vuelve a la gente.”</h3>
-                    <p class="section-copy mt-3 mb-4">El Consejo Comunitario trabaja por el bienestar de las familias afrocolombianas, la protección de las cuencas hídricas y el ejercicio pacífico de la autonomía en el territorio.</p>
-                    <a href="{{ route('nosotros') }}" class="read-more">Conocer visión, historia y gobernanza <i class="bi bi-arrow-right"></i></a>
-                </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <article class="vista2-feature-card">
+                    <div class="vista2-feature-icon"><i class="bi bi-stars"></i></div>
+                    <span class="vista2-feature-number">01 / Institucional</span>
+                    <h3 class="fw-bold mb-2">Quiénes somos</h3>
+                    <p class="text-muted small mb-4" style="line-height: 1.7;">
+                        Autoridad étnica y comunitaria comprometida con la defensa de la identidad afro, la memoria ancestral y el bienestar de las 8 veredas articuladas.
+                    </p>
+                    <span class="vista2-feature-line"></span>
+                </article>
             </div>
+            <div class="col-md-4">
+                <article class="vista2-feature-card vista2-feature-card--brown">
+                    <div class="vista2-feature-icon"><i class="bi bi-bullseye"></i></div>
+                    <span class="vista2-feature-number">02 / Propósito</span>
+                    <h3 class="fw-bold mb-2">Misión</h3>
+                    <p class="text-muted small mb-4" style="line-height: 1.7;">
+                        Proteger los derechos colectivos reconocidos en la Ley 70 de 1993, resguardar las cuencas hídricas y fortalecer la participación transparente sin intermediarios.
+                    </p>
+                    <span class="vista2-feature-line"></span>
+                </article>
+            </div>
+            <div class="col-md-4">
+                <article class="vista2-feature-card vista2-feature-card--gold">
+                    <div class="vista2-feature-icon"><i class="bi bi-arrow-up-right-circle"></i></div>
+                    <span class="vista2-feature-number">03 / Proyección</span>
+                    <h3 class="fw-bold mb-2">Visión</h3>
+                    <p class="text-muted small mb-4" style="line-height: 1.7;">
+                        Consolidar un territorio soberano, conectado digitalmente y próspero, donde las nuevas generaciones crezcan orgullosas de sus raíces y autonomía colectiva.
+                    </p>
+                    <span class="vista2-feature-line"></span>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
+<div class="relief-divider" aria-hidden="true"></div>
+
+{{-- 4. Estructura Comunitaria (Organizados para avanzar juntos) --}}
+<section class="section" id="organizacion">
+    <div class="wrap">
+        <div class="row g-5 align-items-center">
             <div class="col-lg-5">
-                <div class="glass-card p-4 p-lg-5 h-100" style="border: 1px solid rgba(181, 138, 69, 0.35);">
-                    <div class="kicker">Identidad institucional</div>
-                    <h3 class="mt-3" style="color: var(--brand-primary);">Símbolos y colores del Consejo</h3>
-                    <p style="color: var(--text-muted); line-height: 1.7;">Cada tono representa los principios de la comunidad: soberanía territorial en azul #172D4D, dignidad y memoria en tono marfil #F4F1EA, y riqueza colectiva en oro ancestral #B58A45.</p>
-                    <div class="stat-row">
-                        <div class="stat">
-                            <b style="color: var(--brand-primary);" class="triad-val-primary">#172D4D</b>
-                            <span>Territorio</span>
-                        </div>
-                        <div class="stat">
-                            <b style="color: var(--brand-accent);" class="triad-val-secondary">#F4F1EA</b>
-                            <span>Dignidad</span>
-                        </div>
-                        <div class="stat">
-                            <b style="color: var(--brand-accent);" class="triad-val-accent">#B58A45</b>
-                            <span>Saber colectivo</span>
-                        </div>
+                <div class="kicker" style="color: #6d4c3d;">02 · Estructura comunitaria</div>
+                <h2 class="section-title mb-3">Organizados para <span class="text-brown">avanzar juntos.</span></h2>
+                <p class="section-copy mb-4">
+                    La gobernanza del Consejo Comunitario se articula mediante instancias elegidas democráticamente en asamblea general para representar y cuidar el territorio.
+                </p>
+                <a href="{{ route('nosotros') }}" class="btn btn-main btn-water">
+                    Ver Junta y Autoridades <i class="bi bi-arrow-up-right ms-2"></i>
+                </a>
+            </div>
+            <div class="col-lg-7">
+                <div class="vista2-org-item">
+                    <span class="vista2-org-index">01</span>
+                    <div class="flex-grow-1">
+                        <h3 class="h6 fw-bold mb-0">Junta de Gobierno</h3>
+                        <p class="small text-muted mb-0">Gobierno propio y representación comunitaria</p>
                     </div>
+                    <i class="bi bi-arrow-up-right text-muted"></i>
+                </div>
+                <div class="vista2-org-item">
+                    <span class="vista2-org-index">02</span>
+                    <div class="flex-grow-1">
+                        <h3 class="h6 fw-bold mb-0">Representación Legal</h3>
+                        <p class="small text-muted mb-0">Gestión jurídica y representación institucional</p>
+                    </div>
+                    <i class="bi bi-arrow-up-right text-muted"></i>
+                </div>
+                <div class="vista2-org-item">
+                    <span class="vista2-org-index">03</span>
+                    <div class="flex-grow-1">
+                        <h3 class="h6 fw-bold mb-0">Presidentes de JAC</h3>
+                        <p class="small text-muted mb-0">Articulación y participación directa en cada vereda</p>
+                    </div>
+                    <i class="bi bi-arrow-up-right text-muted"></i>
+                </div>
+                <div class="vista2-org-item">
+                    <span class="vista2-org-index">04</span>
+                    <div class="flex-grow-1">
+                        <h3 class="h6 fw-bold mb-0">Guardia Cimarrona</h3>
+                        <p class="small text-muted mb-0">Custodia pacífica, prevención y cuidado de linderos</p>
+                    </div>
+                    <i class="bi bi-arrow-up-right text-muted"></i>
+                </div>
+                <div class="vista2-org-item mb-0">
+                    <span class="vista2-org-index">05</span>
+                    <div class="flex-grow-1">
+                        <h3 class="h6 fw-bold mb-0">Equipo Administrativo y de Campo</h3>
+                        <p class="small text-muted mb-0">Apoyo técnico al censo étnico y proyectos comunitarios</p>
+                    </div>
+                    <i class="bi bi-arrow-up-right text-muted"></i>
                 </div>
             </div>
         </div>
@@ -319,25 +389,69 @@
 {{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
 <div class="relief-divider" aria-hidden="true"></div>
 
-{{-- 4. Resumen Territorio --}}
-<section class="section">
+{{-- 5. Nuestro Territorio (Mapa Conceptual + Veredas Dinámicas) --}}
+<section class="section section-light" id="territorio">
     <div class="wrap">
-        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
-            <div class="section-header mb-0">
-                <div class="kicker">02 · Territorio</div>
-                <h2 class="section-title serif">Un mapa de relaciones, no solo de lugares.</h2>
-                <p class="section-copy">Veredas, reservas, centros comunitarios y espacios de encuentro que tejen la vida comunitaria.</p>
+        <div class="row g-5 align-items-center mb-5">
+            <div class="col-lg-5">
+                <div class="kicker">03 · Nuestro territorio</div>
+                <h2 class="section-title mb-3">Un mapa para<br><span class="text-brown">reconocer lo nuestro.</span></h2>
+                <p class="section-copy mb-4">
+                    Veredas, fincas, reservas hídricas y espacios comunitarios que tejen la vida, la memoria y la soberanía del Zanjón de Garrapatero.
+                </p>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="vista2-chip">Veredas</span>
+                    <span class="vista2-chip">Fincas</span>
+                    <span class="vista2-chip">Reservas</span>
+                    <span class="vista2-chip">Espacios comunitarios</span>
+                </div>
+                <a href="{{ route('territorio') }}" class="btn btn-ghost btn-water">
+                    Explorar todas las veredas <i class="bi bi-compass ms-1"></i>
+                </a>
             </div>
-            <a href="{{ route('territorio') }}" class="btn btn-ghost">
-                Ver todos los territorios <i class="bi bi-map ms-1"></i>
-            </a>
+            <div class="col-lg-7">
+                <div class="vista2-map-demo">
+                    <div class="vista2-map-demo__header">
+                        <strong style="color: #1e3a8a;">Territorio y lugares de interés</strong>
+                        <span class="badge bg-light text-secondary border">CARTOGRAFÍA COMUNITARIA</span>
+                    </div>
+                    <svg viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-100 d-block">
+                        <defs>
+                            <pattern id="mapDotsHome" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#afc7d7"/></pattern>
+                            <linearGradient id="regionFillHome" x1="40" y1="0" x2="430" y2="320" gradientUnits="userSpaceOnUse"><stop stop-color="#e5d4be"/><stop offset="1" stop-color="#be9a74"/></linearGradient>
+                        </defs>
+                        <rect width="600" height="320" fill="#ecf5fa"/>
+                        <rect width="600" height="320" fill="url(#mapDotsHome)"/>
+                        <path d="M120 76 211 31l74 31 96-20 87 56 22 82-64 51-34 55-105-24-59 27-89-37-58-83Z" fill="url(#regionFillHome)" stroke="#8f6a4d" stroke-width="2" stroke-dasharray="8 7"/>
+                        <path d="m0 220 128-49 89 23 112-95 116 24 155-73" stroke="#90bfd8" stroke-width="15" stroke-linecap="round" fill="none"/>
+                        <path d="m0 220 128-49 89 23 112-95 116 24 155-73" stroke="#d8ecf7" stroke-width="6" stroke-linecap="round" fill="none"/>
+                        <g fill="#2d51ad" stroke="#ffffff" stroke-width="4">
+                            <circle cx="212" cy="130" r="12"/>
+                            <circle cx="347" cy="96" r="12"/>
+                            <circle cx="299" cy="215" r="12"/>
+                        </g>
+                        <circle cx="396" cy="190" r="12" fill="#f5cd6d" stroke="#ffffff" stroke-width="4"/>
+                        <g fill="#1e3a8a" font-family="Manrope, sans-serif" font-size="13" font-weight="800">
+                            <text x="178" y="108">El Palmar</text>
+                            <text x="354" y="76">Reservas</text>
+                            <text x="256" y="254">Santa Lucía</text>
+                            <text x="404" y="224">La Toma</text>
+                        </g>
+                    </svg>
+                    <div class="vista2-map-demo__footer">
+                        <span><i class="bi bi-circle-fill text-primary me-1" style="font-size: 0.6rem;"></i> Veredas y sectores</span>
+                        <span><i class="bi bi-circle-fill text-warning me-1" style="font-size: 0.6rem;"></i> Espacios comunitarios</span>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div class="mini-grid">
             @if(isset($territories) && $territories->isNotEmpty())
                 @foreach($territories->take(4) as $t)
                     <article class="territory">
                         @if($t->sector_badge)
-                            <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(181, 138, 69, 0.3); color: #ffffff; border: 1px solid rgba(181, 138, 69, 0.5); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;">
+                            <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(245, 205, 109, 0.25); color: #ffffff; border: 1px solid rgba(245, 205, 109, 0.5); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;">
                                 <i class="bi bi-geo-alt-fill me-1"></i> {{ $t->sector_badge }}
                             </span>
                         @endif
@@ -348,33 +462,25 @@
                 @endforeach
             @else
                 <article class="territory">
-                    <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(181, 138, 69, 0.3); color: #ffffff; border: 1px solid rgba(181, 138, 69, 0.5); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;">
-                        <i class="bi bi-geo-alt-fill me-1"></i> Sector Central
-                    </span>
+                    <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(245, 205, 109, 0.25); color: #ffffff; border: 1px solid rgba(245, 205, 109, 0.5); font-size: 0.68rem;">SECTOR CENTRAL</span>
                     <h3>El Palmar</h3>
                     <p>La mayor concentración de registros en la base de referencia comunitaria.</p>
                     <a href="{{ route('territorio') }}" class="read-more text-white">Conocer más <i class="bi bi-arrow-right"></i></a>
                 </article>
                 <article class="territory">
-                    <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(181, 138, 69, 0.3); color: #ffffff; border: 1px solid rgba(181, 138, 69, 0.5); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;">
-                        <i class="bi bi-tree-fill me-1"></i> Cuenca Alta
-                    </span>
+                    <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(245, 205, 109, 0.25); color: #ffffff; border: 1px solid rgba(245, 205, 109, 0.5); font-size: 0.68rem;">CUENCA ALTA</span>
                     <h3>Santa Lucía</h3>
                     <p>Comunidad, recorridos y memoria que conectan el paisaje ancestral.</p>
                     <a href="{{ route('territorio') }}" class="read-more text-white">Conocer más <i class="bi bi-arrow-right"></i></a>
                 </article>
                 <article class="territory">
-                    <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(181, 138, 69, 0.3); color: #ffffff; border: 1px solid rgba(181, 138, 69, 0.5); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;">
-                        <i class="bi bi-water me-1"></i> Reserva Hídrica
-                    </span>
+                    <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(245, 205, 109, 0.25); color: #ffffff; border: 1px solid rgba(245, 205, 109, 0.5); font-size: 0.68rem;">RESERVA HÍDRICA</span>
                     <h3>La Toma</h3>
                     <p>Territorio y organización como ejercicio permanente de autonomía.</p>
                     <a href="{{ route('territorio') }}" class="read-more text-white">Conocer más <i class="bi bi-arrow-right"></i></a>
                 </article>
                 <article class="territory">
-                    <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(181, 138, 69, 0.3); color: #ffffff; border: 1px solid rgba(181, 138, 69, 0.5); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;">
-                        <i class="bi bi-people-fill me-1"></i> Familias Campesinas
-                    </span>
+                    <span class="badge rounded-pill mb-2 px-2 py-1" style="background: rgba(245, 205, 109, 0.25); color: #ffffff; border: 1px solid rgba(245, 205, 109, 0.5); font-size: 0.68rem;">FAMILIAS</span>
                     <h3>Mazamorrero</h3>
                     <p>Una entrada para reconocer a las familias campesinas y sus historias.</p>
                     <a href="{{ route('territorio') }}" class="read-more text-white">Conocer más <i class="bi bi-arrow-right"></i></a>
@@ -387,58 +493,45 @@
 {{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
 <div class="relief-divider" aria-hidden="true"></div>
 
-{{-- 5. Resumen Actividades --}}
-<section class="section manifesto">
+{{-- 6. Proyectos, Iniciativas y Agenda --}}
+<section class="section manifesto" id="proyectos">
     <div class="wrap">
         <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
             <div class="section-header mb-0">
-                <div class="kicker">03 · Actividades</div>
-                <h2 class="section-title serif">La organización se mueve en comunidad.</h2>
-                <p class="section-copy">Acciones que sostienen el territorio y fortalecen la participación ciudadana.</p>
+                <div class="kicker">04 · Proyectos e iniciativas</div>
+                <h2 class="section-title">Ideas que fortalecen <span class="text-brown">el territorio.</span></h2>
+                <p class="section-copy">Asambleas, mingas ambientales, memoria cultural y gestión comunitaria en calendario.</p>
             </div>
-            <a href="{{ route('actividades') }}" class="btn btn-main">
-                Explorar actividades <i class="bi bi-arrow-right ms-1"></i>
+            <a href="{{ route('actividades') }}" class="btn btn-main btn-water">
+                Ver Calendario de Eventos <i class="bi bi-calendar-event ms-1"></i>
             </a>
         </div>
-        <div class="row g-3">
-            <div class="col-md-6 col-xl-3">
-                <article class="activity-card">
-                    <div class="d-inline-flex align-items-center justify-content-center rounded-4 p-3 mb-3" style="width: 54px; height: 54px; background: rgba(181, 138, 69, 0.16); color: var(--brand-accent); border: 1px solid rgba(181, 138, 69, 0.35);">
-                        <i class="bi bi-megaphone fs-4"></i>
-                    </div>
-                    <h3>Asambleas</h3>
-                    <p>Convocatorias, acuerdos y próximos encuentros de la comunidad.</p>
-                    <a href="{{ route('actividades') }}" class="read-more mt-auto pt-2">Ver agenda <i class="bi bi-arrow-right"></i></a>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <article class="vista2-feature-card">
+                    <div class="vista2-feature-icon"><i class="bi bi-tree-fill"></i></div>
+                    <span class="vista2-feature-number">Línea Estratégica</span>
+                    <h3 class="fw-bold mb-2">Territorio y desarrollo</h3>
+                    <p class="text-muted small mb-3">Iniciativas productivas, cuidado de cuencas y protección ambiental en nuestras veredas.</p>
+                    <a href="{{ route('actividades') }}" class="read-more mt-auto">Ver agenda <i class="bi bi-arrow-right"></i></a>
                 </article>
             </div>
-            <div class="col-md-6 col-xl-3">
-                <article class="activity-card">
-                    <div class="d-inline-flex align-items-center justify-content-center rounded-4 p-3 mb-3" style="width: 54px; height: 54px; background: rgba(23, 45, 77, 0.08); color: var(--brand-primary); border: 1px solid rgba(23, 45, 77, 0.18);">
-                        <i class="bi bi-tree fs-4"></i>
-                    </div>
-                    <h3>Cuidado territorial</h3>
-                    <p>Acciones de protección, recorridos, reservas y memoria ambiental.</p>
-                    <a href="{{ route('actividades') }}" class="read-more mt-auto pt-2">Ver acciones <i class="bi bi-arrow-right"></i></a>
+            <div class="col-md-4">
+                <article class="vista2-feature-card vista2-feature-card--brown">
+                    <div class="vista2-feature-icon"><i class="bi bi-music-note-beamed"></i></div>
+                    <span class="vista2-feature-number">Línea Cultural</span>
+                    <h3 class="fw-bold mb-2">Cultura e identidad</h3>
+                    <p class="text-muted small mb-3">Divulgación de saberes ancestrales, cantos tradicionales, cimarrona y memoria viva afro.</p>
+                    <a href="{{ route('galeria') }}" class="read-more mt-auto">Explorar galería <i class="bi bi-arrow-right"></i></a>
                 </article>
             </div>
-            <div class="col-md-6 col-xl-3">
-                <article class="activity-card">
-                    <div class="d-inline-flex align-items-center justify-content-center rounded-4 p-3 mb-3" style="width: 54px; height: 54px; background: rgba(181, 138, 69, 0.16); color: var(--brand-accent); border: 1px solid rgba(181, 138, 69, 0.35);">
-                        <i class="bi bi-music-note-beamed fs-4"></i>
-                    </div>
-                    <h3>Cultura viva</h3>
-                    <p>Cimarrona, saberes ancestrales y relatos que conectan generaciones.</p>
-                    <a href="{{ route('actividades') }}" class="read-more mt-auto pt-2">Ver saberes <i class="bi bi-arrow-right"></i></a>
-                </article>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <article class="activity-card">
-                    <div class="d-inline-flex align-items-center justify-content-center rounded-4 p-3 mb-3" style="width: 54px; height: 54px; background: rgba(23, 45, 77, 0.08); color: var(--brand-primary); border: 1px solid rgba(23, 45, 77, 0.18);">
-                        <i class="bi bi-person-check fs-4"></i>
-                    </div>
-                    <h3>Gestión comunitaria</h3>
-                    <p>Censo, avales, proyectos y canales de atención para las familias.</p>
-                    <a href="{{ route('actividades') }}" class="read-more mt-auto pt-2">Ver trámites <i class="bi bi-arrow-right"></i></a>
+            <div class="col-md-4">
+                <article class="vista2-feature-card vista2-feature-card--gold">
+                    <div class="vista2-feature-icon"><i class="bi bi-people-fill"></i></div>
+                    <span class="vista2-feature-number">Línea Organizativa</span>
+                    <h3 class="fw-bold mb-2">Participación comunitaria</h3>
+                    <p class="text-muted small mb-3">Asambleas generales, censo territorial digital, avales y atención directa a las familias.</p>
+                    <a href="{{ route('contacto') }}" class="read-more mt-auto">Solicitar censo <i class="bi bi-arrow-right"></i></a>
                 </article>
             </div>
         </div>
@@ -448,16 +541,81 @@
 {{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
 <div class="relief-divider" aria-hidden="true"></div>
 
-{{-- 6. Resumen Galería --}}
-<section class="section section-light">
+{{-- 7. Actualidad del Consejo con Filtros por Categoría --}}
+<section class="section section-light" id="actualidad">
     <div class="wrap">
         <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
             <div class="section-header mb-0">
-                <div class="kicker">04 · Galería</div>
-                <h2 class="section-title serif">Rostros, caminos y memoria.</h2>
-                <p class="section-copy">Registro visual para documentar el territorio con fotografías reales de nuestra gente y sus paisajes.</p>
+                <div class="kicker">05 · Actualidad del Consejo</div>
+                <h2 class="section-title">La comunidad <span class="text-brown">está informada.</span></h2>
             </div>
-            <a href="{{ route('galeria') }}" class="btn btn-main">
+            <a href="{{ route('actualidad') }}" class="btn btn-main btn-water">
+                Ver todas las noticias <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mb-4" id="homePubTabs" role="tablist">
+            <button type="button" class="vista2-tab-btn is-active" data-pub-filter="all">Todas</button>
+            <button type="button" class="vista2-tab-btn" data-pub-filter="noticia">Noticias</button>
+            <button type="button" class="vista2-tab-btn" data-pub-filter="evento">Eventos</button>
+            <button type="button" class="vista2-tab-btn" data-pub-filter="comunicado">Comunicados</button>
+        </div>
+
+        <div class="row g-4" id="homePubGrid">
+            @if(isset($publications) && $publications->isNotEmpty())
+                @foreach($publications->take(3) as $pub)
+                    <div class="col-md-4 home-pub-card" data-pub-type="{{ strtolower($pub->category) }}">
+                        <article class="news-card">
+                            <span class="news-date">{{ $pub->category }} · {{ $pub->published_at ? $pub->published_at->format('d/m/Y') : date('Y') }}</span>
+                            <h3>{{ $pub->title }}</h3>
+                            <p>{{ $pub->summary ?: Str::limit($pub->content, 110) }}</p>
+                            <a class="read-more" href="{{ route('actualidad') }}">Leer más <i class="bi bi-arrow-up-right"></i></a>
+                        </article>
+                    </div>
+                @endforeach
+            @else
+                <div class="col-md-4 home-pub-card" data-pub-type="evento">
+                    <article class="news-card">
+                        <span class="news-date">Evento · {{ date('F Y') }}</span>
+                        <h3>Presentación formal ante la asamblea</h3>
+                        <p>Un encuentro para presentar la aplicación, sus objetivos y el camino de apropiación comunitaria.</p>
+                        <a class="read-more" href="{{ route('actualidad') }}">Leer más <i class="bi bi-arrow-up-right"></i></a>
+                    </article>
+                </div>
+                <div class="col-md-4 home-pub-card" data-pub-type="noticia">
+                    <article class="news-card">
+                        <span class="news-date">Noticia · Censo</span>
+                        <h3>Hacia un registro comunitario ampliado</h3>
+                        <p>La plataforma permite solicitar registro, adjuntar documentos y validar pertenencia territorial.</p>
+                        <a class="read-more" href="{{ route('actualidad') }}">Conocer proceso <i class="bi bi-arrow-up-right"></i></a>
+                    </article>
+                </div>
+                <div class="col-md-4 home-pub-card" data-pub-type="comunicado">
+                    <article class="news-card">
+                        <span class="news-date">Comunicado · Memoria</span>
+                        <h3>Noticias, eventos y comunicados</h3>
+                        <p>Un archivo público y vivo para que la comunidad encuentre información verificada en un solo lugar.</p>
+                        <a class="read-more" href="{{ route('actualidad') }}">Ver comunicados <i class="bi bi-arrow-up-right"></i></a>
+                    </article>
+                </div>
+            @endif
+        </div>
+    </div>
+</section>
+
+{{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
+<div class="relief-divider" aria-hidden="true"></div>
+
+{{-- 8. Galería Visual --}}
+<section class="section">
+    <div class="wrap">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div class="section-header mb-0">
+                <div class="kicker">06 · Galería</div>
+                <h2 class="section-title">Rostros, caminos y memoria.</h2>
+                <p class="section-copy">Registro visual del territorio con fotografías reales de nuestra gente y sus paisajes.</p>
+            </div>
+            <a href="{{ route('galeria') }}" class="btn btn-main btn-water">
                 Ver galería completa <i class="bi bi-images ms-1"></i>
             </a>
         </div>
@@ -498,78 +656,66 @@
 {{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
 <div class="relief-divider" aria-hidden="true"></div>
 
-{{-- 7. Resumen Actualidad --}}
-<section class="section section-light">
+{{-- 9. Panel de Contacto Institucional ("Conversemos") --}}
+<section class="section pt-0" id="contacto">
     <div class="wrap">
-        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
-            <div class="section-header mb-0">
-                <div class="kicker">05 · Actualidad</div>
-                <h2 class="section-title serif">La comunidad también se cuenta en presente.</h2>
-            </div>
-            <a href="{{ route('actualidad') }}" class="btn btn-main">
-                Ir a Actualidad <i class="bi bi-arrow-right ms-1"></i>
-            </a>
-        </div>
-        <div class="row g-4">
-            @if(isset($publications) && $publications->isNotEmpty())
-                @foreach($publications->take(3) as $pub)
-                    <div class="col-md-4">
-                        <article class="news-card">
-                            <span class="news-date">{{ $pub->category }} · {{ $pub->published_at ? $pub->published_at->format('d/m/Y') : date('Y') }}</span>
-                            <h3>{{ $pub->title }}</h3>
-                            <p>{{ $pub->summary ?: Str::limit($pub->content, 110) }}</p>
-                            <a class="read-more" href="{{ route('actualidad') }}">Leer más <i class="bi bi-arrow-up-right"></i></a>
-                        </article>
+        <div class="vista2-contact-panel">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6">
+                    <span class="eyebrow-light mb-2"><span class="dot-gold"></span> CONVERSEMOS</span>
+                    <h2 class="fw-bold text-white mb-3" style="font-size: clamp(1.85rem, 3.2vw, 2.75rem);">Un espacio abierto<br>para nuestra comunidad.</h2>
+                    <p class="text-white-50 mb-4" style="max-width: 480px; line-height: 1.7;">
+                        Comunícate con la Junta de Gobierno, envía solicitudes de censo o consulta canales oficiales de atención territorial.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a class="btn btn-main btn-water" href="{{ route('contacto') }}">
+                            Ir a Contacto y Censo <i class="bi bi-arrow-up-right ms-1"></i>
+                        </a>
+                        <a class="btn btn-glass-light btn-water" href="#mainContent">
+                            Volver al inicio <i class="bi bi-arrow-up ms-1"></i>
+                        </a>
                     </div>
-                @endforeach
-            @else
-                <div class="col-md-4">
-                    <article class="news-card">
-                        <span class="news-date">Agenda · {{ date('F Y') }}</span>
-                        <h3>Presentación formal ante la asamblea</h3>
-                        <p>Un encuentro para presentar la aplicación, sus objetivos y el camino de apropiación comunitaria.</p>
-                        <a class="read-more" href="{{ route('actualidad') }}">Leer más <i class="bi bi-arrow-up-right"></i></a>
-                    </article>
                 </div>
-                <div class="col-md-4">
-                    <article class="news-card">
-                        <span class="news-date">Proceso · Censo</span>
-                        <h3>Hacia un registro comunitario ampliado</h3>
-                        <p>La plataforma permitirá solicitar registro, adjuntar documento y validar pertenencia territorial.</p>
-                        <a class="read-more" href="{{ route('actualidad') }}">Conocer proceso <i class="bi bi-arrow-up-right"></i></a>
-                    </article>
+                <div class="col-lg-6">
+                    <div class="d-flex flex-column gap-3">
+                        <div class="vista2-contact-card">
+                            <span class="fs-4 text-warning"><i class="bi bi-envelope-fill"></i></span>
+                            <div>
+                                <strong class="d-block text-white">Contacto institucional</strong>
+                                <span class="small text-white-50">comunicaciones@consejozanjondegarrapatero.org</span>
+                            </div>
+                        </div>
+                        <div class="vista2-contact-card">
+                            <span class="fs-4 text-warning"><i class="bi bi-geo-alt-fill"></i></span>
+                            <div>
+                                <strong class="d-block text-white">Sede Territorial</strong>
+                                <span class="small text-white-50">Zanjón de Garrapatero · Departamento del Cauca, Colombia</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <article class="news-card">
-                        <span class="news-date">Cultura · Memoria</span>
-                        <h3>Noticias, eventos y comunicados</h3>
-                        <p>Un archivo público y vivo para que la comunidad encuentre información verificada en un solo lugar.</p>
-                        <a class="read-more" href="{{ route('actualidad') }}">Ver comunicados <i class="bi bi-arrow-up-right"></i></a>
-                    </article>
-                </div>
-            @endif
-        </div>
-    </div>
-</section>
-
-{{-- Separador con Efecto de Relieve y Dota / Gota Central --}}
-<div class="relief-divider" aria-hidden="true"></div>
-
-{{-- 8. Franja de Parallax con llamado a Contacto --}}
-<section class="parallax-band" data-parallax="0.16">
-    <div class="wrap">
-        <div class="parallax-content">
-            <div class="kicker">Territorio en movimiento</div>
-            <h2 class="serif mt-3">Cada camino guarda una historia.</h2>
-            <p class="mt-4">Participa activamente en las decisiones y en el crecimiento de nuestra comunidad afro.</p>
-            <div class="d-flex gap-3 flex-wrap">
-                <a class="btn btn-main" href="{{ route('contacto') }}">
-                    Contáctanos <i class="bi bi-arrow-up-right ms-2"></i>
-                </a>
-                <a class="btn btn-ghost" href="{{ route('territorio') }}">
-                    Explorar territorios <i class="bi bi-compass ms-2"></i>
-                </a>
             </div>
         </div>
     </div>
 </section>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const tabButtons = document.querySelectorAll('#homePubTabs [data-pub-filter]');
+    const cards = document.querySelectorAll('#homePubGrid .home-pub-card');
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabButtons.forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+            const filter = btn.dataset.pubFilter;
+            cards.forEach(card => {
+                const type = card.dataset.pubType || '';
+                const show = filter === 'all' || type.includes(filter);
+                card.classList.toggle('d-none', !show);
+            });
+        });
+    });
+});
+</script>
+@endpush

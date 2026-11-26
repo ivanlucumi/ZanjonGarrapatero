@@ -13,6 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -285,5 +286,56 @@ class CommunityFeaturesTest extends TestCase
         $blocked->assertSee('#000000', false);
         $blocked->assertSee('pointer-events: none', false);
         $blocked->assertSee('Dominio no autorizado');
+    }
+
+    public function test_seo_favicon_opengraph_sitemap_and_topbar_removal(): void
+    {
+        $home = $this->get(route('index'));
+        $home->assertStatus(200);
+        $home->assertDontSee('Un territorio, muchas voces, una comunidad');
+        $home->assertSee('brand-mark-lg');
+        $home->assertSee('rel="icon"', false);
+        $home->assertSee('og:image', false);
+        $home->assertSee(asset('logo/logo.webp'), false);
+        $home->assertSee('application/ld+json', false);
+
+        $sitemap = $this->get(route('sitemap'));
+        $sitemap->assertStatus(200);
+        $sitemap->assertHeader('Content-Type', 'application/xml; charset=UTF-8');
+        $sitemap->assertSee(route('nosotros'));
+        $sitemap->assertSee(route('actividades'));
+    }
+
+    public function test_login_renders_google_recaptcha_and_validates_when_enabled(): void
+    {
+        $loginPage = $this->get(route('login'));
+        $loginPage->assertStatus(200);
+        $loginPage->assertSee('g-recaptcha');
+        $loginPage->assertSee('https://www.google.com/recaptcha/api.js?hl=es', false);
+
+        $user = User::factory()->create([
+            'password' => bcrypt('secret123'),
+            'role' => UserRole::SuperAdmin,
+        ]);
+
+        Config::set('services.recaptcha.enabled', true);
+        Config::set('services.recaptcha.secret_key', 'test-secret-key');
+
+        // Sin token g-recaptcha-response debe fallar validación
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'secret123',
+        ])->assertSessionHasErrors('g-recaptcha-response');
+
+        // Con token válido verificado por Google API debe iniciar sesión
+        Http::fake([
+            'https://www.google.com/recaptcha/api/siteverify' => Http::response(['success' => true], 200),
+        ]);
+
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'secret123',
+            'g-recaptcha-response' => 'valid-token-demo',
+        ])->assertRedirect(route('admin.dashboard'));
     }
 }

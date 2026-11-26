@@ -7,6 +7,11 @@
 
     <title>@yield('title', 'Panel Administrativo') — Consejo Comunitario Zanjón de Garrapatero</title>
 
+    <link rel="icon" type="image/webp" href="{{ asset('logo/logo.webp') }}">
+    <link rel="shortcut icon" type="image/webp" href="{{ asset('logo/logo.webp') }}">
+    <link rel="apple-touch-icon" href="{{ asset('logo/logo.webp') }}">
+    <meta name="robots" content="noindex, nofollow">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,24 +91,24 @@
 
             <!-- NAVEGACIÓN MODULAR Y EXPANDIBLE DEL MENÚ LATERAL -->
             <nav class="admin-sidebar-nav">
-                <!-- Sección 1: Principal -->
-                <div class="admin-sidebar-section-header">Principal</div>
+                <!-- Sección 1: GENERAL -->
+                <div class="admin-sidebar-section-header">GENERAL</div>
                 <ul class="admin-nav-list">
                     <li>
                         <a href="{{ route('admin.dashboard') }}" class="admin-nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                            <i class="bi bi-speedometer2"></i>
-                            <span>Panel de Control</span>
+                            <i class="bi bi-grid-1x2-fill"></i>
+                            <span>Dashboard</span>
                         </a>
                     </li>
                 </ul>
 
-                <!-- Sección 2: Censo y Consultas -->
-                <div class="admin-sidebar-section-header">Censo y Consultas</div>
+                <!-- Sección 2: GESTIÓN COMUNITARIA -->
+                <div class="admin-sidebar-section-header">GESTIÓN COMUNITARIA</div>
                 <ul class="admin-nav-list">
                     <li>
                         <a href="{{ route('admin.surveys.index') }}" class="admin-nav-item {{ request()->routeIs('admin.surveys.index') || request()->routeIs('admin.surveys.show') || request()->routeIs('admin.surveys.respond') || request()->routeIs('admin.surveys.responses') ? 'active' : '' }}">
                             <i class="bi bi-clipboard2-check"></i>
-                            <span>Encuestas y Censos</span>
+                            <span>Censo comunitario</span>
                         </a>
                     </li>
                     @if(Auth::user()->role->canManageSurveys())
@@ -111,14 +116,13 @@
                             <a href="{{ route('admin.surveys.create') }}" class="admin-nav-item {{ request()->routeIs('admin.surveys.create') ? 'active' : '' }}">
                                 <i class="bi bi-plus-circle"></i>
                                 <span>Crear Encuesta</span>
-                                <span class="badge bg-warning text-dark ms-auto" style="font-size: 0.65rem;">Gestión</span>
                             </a>
                         </li>
                     @endif
                 </ul>
 
-                <!-- Sección 3: Gestión de Contenidos (CMS del Portal) -->
-                <div class="admin-sidebar-section-header">Administración Web (CMS)</div>
+                <!-- Sección 3: CONTENIDO WEB -->
+                <div class="admin-sidebar-section-header">CONTENIDO WEB</div>
                 <ul class="admin-nav-list">
                     @if(Auth::user()->role->canManageContent())
                         <li>
@@ -186,8 +190,8 @@
                     @endif
                 </ul>
 
-                <!-- Sección 4: Gobierno, Comuneros y Auditoría -->
-                <div class="admin-sidebar-section-header">Gobierno y Seguridad</div>
+                <!-- Sección 4: SISTEMA -->
+                <div class="admin-sidebar-section-header">SISTEMA</div>
                 <ul class="admin-nav-list">
                     @if(Auth::user()->isSuperAdmin())
                         <li>
@@ -386,19 +390,26 @@
                 });
             });
 
-            // Efecto Agua (Water Ripple) al hacer clic en botones y navegación del panel
+            // Efecto de Gota en el Agua al posicionarse (mouseenter) o dar clic (click)
+            const spawnWaterDrop = (el, e) => {
+                const rect = el.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height) * 0.65;
+                const ripple = document.createElement('span');
+                ripple.className = 'admin-water-ripple';
+                ripple.style.width = `${size}px`;
+                ripple.style.height = `${size}px`;
+                ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+                ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+                el.appendChild(ripple);
+                ripple.addEventListener('animationend', () => ripple.remove());
+            };
+
             document.querySelectorAll('.btn, .btn-admin-gold, .btn-admin-primary, .btn-admin-outline, .admin-btn-save, .admin-btn-cancel, .admin-nav-item').forEach(el => {
+                el.addEventListener('mouseenter', function (e) {
+                    spawnWaterDrop(el, e);
+                });
                 el.addEventListener('click', function (e) {
-                    const rect = el.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const ripple = document.createElement('span');
-                    ripple.className = 'admin-water-ripple';
-                    ripple.style.width = `${size}px`;
-                    ripple.style.height = `${size}px`;
-                    ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
-                    ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
-                    el.appendChild(ripple);
-                    ripple.addEventListener('animationend', () => ripple.remove());
+                    spawnWaterDrop(el, e);
                 });
             });
         });

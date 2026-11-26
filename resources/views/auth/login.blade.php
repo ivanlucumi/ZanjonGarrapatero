@@ -86,6 +86,16 @@
                         @endif
                     </div>
 
+                    {{-- Google reCAPTCHA v2 ("No soy un robot") --}}
+                    <div class="mb-4 d-flex flex-column align-items-center">
+                        <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                        @error('g-recaptcha-response')
+                            <div class="form-glass-feedback mt-2 text-center">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+                    </div>
+
                     <button type="submit" class="btn btn-main w-100 justify-content-center py-3 fs-6">
                         <i class="bi bi-box-arrow-in-right me-2"></i> {{ __('Iniciar Sesión') }}
                     </button>
@@ -101,4 +111,8 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script src="https://www.google.com/recaptcha/api.js?hl=es" async defer></script>
+@endpush
 @endsection

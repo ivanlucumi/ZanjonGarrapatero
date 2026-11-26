@@ -14,6 +14,7 @@ use App\Models\Territory;
 use App\Services\AuditService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -281,5 +282,27 @@ class PageController extends Controller
         );
 
         return Storage::disk('public')->download($document->file_path, $document->file_name);
+    }
+
+    /**
+     * Generate dynamic XML sitemap for fast search engine indexing.
+     */
+    public function sitemap(): Response
+    {
+        $urls = [
+            ['loc' => route('index'), 'priority' => '1.0', 'changefreq' => 'daily'],
+            ['loc' => route('nosotros'), 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => route('territorio'), 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => route('actividades'), 'priority' => '0.9', 'changefreq' => 'daily'],
+            ['loc' => route('galeria'), 'priority' => '0.8', 'changefreq' => 'weekly'],
+            ['loc' => route('actualidad'), 'priority' => '0.9', 'changefreq' => 'daily'],
+            ['loc' => route('videos'), 'priority' => '0.8', 'changefreq' => 'weekly'],
+            ['loc' => route('documentos'), 'priority' => '0.8', 'changefreq' => 'weekly'],
+            ['loc' => route('contacto'), 'priority' => '0.8', 'changefreq' => 'monthly'],
+        ];
+
+        $xml = view('partials.sitemap', ['urls' => $urls])->render();
+
+        return response($xml, 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }
 }

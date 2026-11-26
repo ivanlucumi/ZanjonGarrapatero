@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'recaptcha' => [
+        'enabled' => env('RECAPTCHA_ENABLED', false),
+        'site_key' => env('RECAPTCHA_SITE_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'),
+        'secret_key' => env('RECAPTCHA_SECRET_KEY', ''),
+    ],
+
 ];

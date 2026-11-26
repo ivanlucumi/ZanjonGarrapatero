@@ -6,9 +6,11 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="theme-color" content="#172D4D">
+    <meta name="theme-color" content="#2D51AD">
 
     <title>{{ config('app.name', 'Consejo Comunitario Zanjón de Garrapatero') }}</title>
+
+    @include('partials.seo-meta')
 
     <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net">

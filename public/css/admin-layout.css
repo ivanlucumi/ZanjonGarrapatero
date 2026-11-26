@@ -33,7 +33,7 @@
   --glass-border: rgba(109, 76, 61, 0.14);
   --glass-border-subtle: rgba(109, 76, 61, 0.08);
   --glass-border-gold: rgba(109, 76, 61, 0.24);
-  
+
   --glass-blur-sm: blur(10px);
   --glass-blur-md: blur(16px);
   --glass-blur-lg: blur(24px);
@@ -311,26 +311,32 @@ body.admin-body {
   font-weight: 600;
   font-size: 0.88rem;
   border: 1px solid transparent;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
 }
 
 .admin-nav-item:hover {
-  color: #3e2723;
-  background: rgba(109, 76, 61, 0.09);
-  border-color: rgba(109, 76, 61, 0.2);
-  transform: translateX(3px);
+  color: #c2410c;
+  background: rgba(249, 115, 22, 0.11);
+  border-color: rgba(249, 115, 22, 0.32);
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.12);
+}
+
+.admin-nav-item:hover i:first-child {
+  color: #ea580c;
+  transform: scale(1.12);
 }
 
 .admin-nav-item.active {
   color: #3e2723;
-  background: linear-gradient(90deg, rgba(109, 76, 61, 0.14) 0%, rgba(109, 76, 61, 0.04) 100%);
-  border-left: 3.5px solid #6d4c3d;
-  border-color: rgba(109, 76, 61, 0.25);
-  border-left-color: #6d4c3d;
+  background: linear-gradient(90deg, rgba(109, 76, 61, 0.14) 0%, rgba(249, 115, 22, 0.06) 100%);
+  border-left: 3.5px solid #ea580c;
+  border-color: rgba(249, 115, 22, 0.28);
+  border-left-color: #ea580c;
   font-weight: 700;
-  box-shadow: 0 3px 10px rgba(109, 76, 61, 0.08);
+  box-shadow: 0 3px 10px rgba(249, 115, 22, 0.08);
 }
 
 .admin-nav-item.disabled {
@@ -344,6 +350,7 @@ body.admin-body {
   width: 22px;
   text-align: center;
   color: #6d4c3d;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 /* Pie del Menú Lateral con Cierre de Sesión */
@@ -742,14 +749,12 @@ body.admin-body {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(
-    90deg, 
-    transparent 0%, 
-    rgba(23, 45, 77, 0.12) 25%, 
-    rgba(181, 138, 69, 0.45) 50%, 
-    rgba(23, 45, 77, 0.12) 75%, 
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(23, 45, 77, 0.12) 25%,
+      rgba(181, 138, 69, 0.45) 50%,
+      rgba(23, 45, 77, 0.12) 75%,
+      transparent 100%);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
@@ -1246,43 +1251,59 @@ body.admin-body {
 .admin-body .btn-admin-gold::after,
 .admin-body .btn-admin-primary::after,
 .admin-body .btn-admin-outline::after,
-.admin-body .admin-btn-save::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.42) 0%, rgba(109, 76, 61, 0.16) 55%, transparent 75%);
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-}
 
-.admin-body .btn:hover::after,
-.admin-body .btn-admin-gold:hover::after,
-.admin-body .btn-admin-primary:hover::after,
-.admin-body .btn-admin-outline:hover::after,
-.admin-body .admin-btn-save:hover::after {
-  transform: translate(-50%, -50%) scale(12);
-  opacity: 1;
-}
-
-.admin-water-ripple {
-  position: absolute;
-  border-radius: 50%;
-  transform: scale(0);
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(109, 76, 61, 0.22) 55%, transparent 75%);
-  animation: adminWaterExpand 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  pointer-events: none;
-  z-index: 4;
-}
-
-@keyframes adminWaterExpand {
-  to {
-    transform: scale(4);
+  .admin-body .admin-btn-save::after,
+  .admin-body .admin-nav-item::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(249, 115, 22, 0.26) 55%, transparent 75%);
+    transform: translate(-50%, -50%) scale(0);
     opacity: 0;
+    pointer-events: none;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
   }
-}
+
+  .admin-body .btn:hover::after,
+  .admin-body .btn-admin-gold:hover::after,
+  .admin-body .btn-admin-primary:hover::after,
+  .admin-body .btn-admin-outline:hover::after,
+
+    .admin-body .admin-btn-save:hover::after,
+    .admin-body .admin-nav-item:hover::after {
+      transform: translate(-50%, -50%) scale(13);
+      opacity: 1;
+    }
+
+    .admin-body .btn-admin-outline:hover {
+      border-color: #f97316;
+      color: #c2410c;
+      background: rgba(249, 115, 22, 0.10);
+    }
+
+    .admin-water-ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      border: 2px solid rgba(249, 115, 22, 0.48);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.65) 0%, rgba(249, 115, 22, 0.24) 55%, transparent 78%);
+      animation: adminWaterExpand 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    @keyframes adminWaterExpand {
+        0% {
+          transform: scale(0);
+          opacity: 0.9;
+        }
+
+        100% {
+          transform: scale(4.2);
+          opacity: 0;
+        }
+      }

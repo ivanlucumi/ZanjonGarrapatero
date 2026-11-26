@@ -9,7 +9,12 @@
 
     <title>@yield('title', config('app.name', 'Consejo Comunitario Zanjón de Garrapatero'))</title>
 
-    <!-- Preconnect & Fonts -->
+    @include('partials.seo-meta')
+
+    <!-- Preconnect & Fonts (Manrope) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 
@@ -33,8 +38,8 @@
     <nav class="navbar navbar-expand-lg navbar-white-glass" aria-label="Navegación principal">
         <div class="wrap w-100">
             <div class="d-flex align-items-center justify-content-between">
-                <a class="navbar-brand d-flex align-items-center gap-3" href="{{ route('index') }}">
-                    <img class="brand-mark" src="{{ asset('logo/logo.webp') }}" alt="Logo del Consejo Comunitario Zanjón de Garrapatero" width="44" height="44">
+                <a class="navbar-brand d-flex align-items-center gap-3 ms-0" href="{{ route('index') }}">
+                    <img class="brand-mark brand-mark-lg" src="{{ asset('logo/logo.webp') }}" alt="Logo del Consejo Comunitario Zanjón de Garrapatero" width="62" height="62">
                     <span class="brand-name">
                         Zanjón de Garrapatero
                         <small>Consejo comunitario</small>

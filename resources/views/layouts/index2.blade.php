@@ -9,6 +9,8 @@
 
     <title>@yield('title', 'Diseño 2 · Menú lateral · Consejo Comunitario Zanjón de Garrapatero')</title>
 
+    @include('partials.seo-meta')
+
     <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">

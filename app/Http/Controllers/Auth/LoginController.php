@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -68,6 +69,44 @@ class LoginController extends Controller
     public function decayMinutes(): int
     {
         return (int) config('auth.login_decay_minutes', $this->decayMinutes);
+    }
+
+    /**
+     * Validate the user login request including Google reCAPTCHA ("No soy un robot") when enabled.
+     *
+     * @throws ValidationException
+     */
+    protected function validateLogin(Request $request): void
+    {
+        $rules = [
+            $this->username() => ['required', 'string'],
+            'password' => ['required', 'string'],
+        ];
+
+        $recaptchaEnabled = (bool) config('services.recaptcha.enabled', false);
+        $secretKey = (string) config('services.recaptcha.secret_key', '');
+
+        if ($recaptchaEnabled && $secretKey !== '') {
+            $rules['g-recaptcha-response'] = ['required', 'string'];
+        }
+
+        $request->validate($rules, [
+            'g-recaptcha-response.required' => 'Por favor confirma la verificación "No soy un robot" de Google.',
+        ]);
+
+        if ($recaptchaEnabled && $secretKey !== '') {
+            $verify = Http::asForm()->timeout(8)->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => $secretKey,
+                'response' => $request->input('g-recaptcha-response'),
+                'remoteip' => $request->ip(),
+            ]);
+
+            if (! $verify->successful() || ! ($verify->json('success') === true)) {
+                throw ValidationException::withMessages([
+                    'g-recaptcha-response' => ['La verificación de Google reCAPTCHA falló o expiró. Inténtalo nuevamente.'],
+                ]);
+            }
+        }
     }
 
     /**

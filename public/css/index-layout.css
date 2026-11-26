@@ -22,9 +22,9 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg-canvas, #ece7df);
+  background: var(--bg-canvas, #ffffff);
   color: var(--text-main);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: 'Manrope', Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
 }
 
@@ -211,13 +211,18 @@ hr::after {
 }
 
 .brand-mark {
-  width: 44px;
-  height: 44px;
+  width: 58px;
+  height: 58px;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 15px;
   border: 1px solid rgba(45, 81, 173, 0.16);
   box-shadow: 0 4px 14px rgba(45, 81, 173, 0.14);
   transition: transform 0.3s ease;
+}
+
+.brand-mark.brand-mark-lg {
+  width: 64px;
+  height: 64px;
 }
 
 .navbar-brand:hover .brand-mark {
@@ -3157,4 +3162,229 @@ body, h1, h2, h3, h4, h5, h6, p, a, button {
     transform: scale(4);
     opacity: 0;
   }
+}
+
+/* ============================================================================
+   15. TOPBAR Y SECCIONES MODERNAS INSPIRADAS EN VISTA2 (60/30/10)
+   ============================================================================ */
+.topbar-inst {
+  background: #1e3a8a;
+  color: #dbeafe;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.topbar-inst__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 36px;
+  gap: 12px;
+}
+
+.topbar-inst__right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar-inst__spark {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f5cd6d;
+  box-shadow: 0 0 8px rgba(245, 205, 109, 0.85);
+}
+
+@media (max-width: 720px) {
+  .topbar-inst__right {
+    display: none;
+  }
+}
+
+.text-brown {
+  color: #6d4c3d;
+}
+
+.vista2-feature-card {
+  background: #ffffff;
+  border: 1px solid rgba(45, 81, 173, 0.10);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 18px 46px rgba(15, 53, 79, 0.06);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.vista2-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 54px rgba(45, 81, 173, 0.12);
+}
+
+.vista2-feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(45, 81, 173, 0.08);
+  color: #2d51ad;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  margin-bottom: 16px;
+}
+
+.vista2-feature-card--brown .vista2-feature-icon {
+  background: rgba(109, 76, 61, 0.10);
+  color: #6d4c3d;
+}
+
+.vista2-feature-card--gold .vista2-feature-icon {
+  background: rgba(245, 205, 109, 0.24);
+  color: #9c7317;
+}
+
+.vista2-feature-number {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.vista2-feature-line {
+  height: 3px;
+  width: 46px;
+  border-radius: 999px;
+  background: #2d51ad;
+  margin-top: auto;
+  padding-top: 0;
+}
+
+.vista2-feature-card--brown .vista2-feature-line {
+  background: #6d4c3d;
+}
+
+.vista2-feature-card--gold .vista2-feature-line {
+  background: #f5cd6d;
+}
+
+.vista2-org-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 1px solid rgba(109, 76, 61, 0.12);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 18px rgba(78, 52, 46, 0.04);
+}
+
+.vista2-org-item:hover {
+  transform: translateX(6px);
+  border-color: rgba(109, 76, 61, 0.32);
+  background: #faf7f5;
+}
+
+.vista2-org-index {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(109, 76, 61, 0.10);
+  color: #6d4c3d;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vista2-map-demo {
+  background: #ffffff;
+  border: 1px solid rgba(45, 81, 173, 0.14);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 22px 54px rgba(15, 53, 79, 0.09);
+}
+
+.vista2-map-demo__header,
+.vista2-map-demo__footer {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  background: #ffffff;
+}
+
+.vista2-map-demo__header {
+  border-bottom: 1px solid rgba(45, 81, 173, 0.08);
+}
+
+.vista2-map-demo__footer {
+  border-top: 1px solid rgba(45, 81, 173, 0.08);
+  color: #64748b;
+}
+
+.vista2-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(109, 76, 61, 0.08);
+  color: #5d4037;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.vista2-tab-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(45, 81, 173, 0.16);
+  background: #ffffff;
+  color: #475569;
+  font-size: 0.84rem;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.vista2-tab-btn:hover {
+  background: rgba(45, 81, 173, 0.08);
+  color: #2d51ad;
+}
+
+.vista2-tab-btn.is-active {
+  background: #2d51ad;
+  color: #ffffff;
+  border-color: #2d51ad;
+  box-shadow: 0 6px 16px rgba(45, 81, 173, 0.25);
+}
+
+.vista2-contact-panel {
+  background: linear-gradient(135deg, #214296 0%, #2d51ad 55%, #3c79a4 100%);
+  color: #ffffff;
+  border-radius: 26px;
+  padding: clamp(30px, 5vw, 56px);
+  box-shadow: 0 24px 60px rgba(30, 58, 138, 0.22);
+}
+
+.vista2-contact-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(12px);
 }
