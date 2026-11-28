@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Middleware\EnforceAllowedDomain;
 use App\Http\Middleware\EnforceMaxSessionLifetime;
 use App\Http\Middleware\EnsureUserHasRole;
+use App\Http\Middleware\SecurityHeadersMiddleware;
 use App\Services\ErrorNotificationService;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -24,8 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'session.lifetime' => EnforceMaxSessionLifetime::class,
         ]);
 
-        $middleware->prependToGroup('web', EnforceAllowedDomain::class);
         $middleware->appendToGroup('web', EnforceMaxSessionLifetime::class);
+        $middleware->appendToGroup('web', SecurityHeadersMiddleware::class);
 
         $middleware->redirectUsersTo(
             fn (Request $request): string => route($request->user()?->role?->dashboardRoute() ?? 'admin.dashboard'),

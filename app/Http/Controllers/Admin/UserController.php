@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\SwitchRoleRequest;
 use App\Http\Requests\Admin\UpdateUserRoleRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -61,19 +60,5 @@ class UserController extends Controller
         ]);
 
         return back()->with('success', "Perfil y permisos de '{$user->name}' actualizados a {$user->role->label()}.");
-    }
-
-    /**
-     * Demo role switcher: allows the authenticated user to switch role to test all 3 views.
-     */
-    public function switchDemoRole(SwitchRoleRequest $request): RedirectResponse
-    {
-        /** @var User $currentUser */
-        $currentUser = $request->user();
-
-        $targetRole = UserRole::from($request->validated('role'));
-        $currentUser->update(['role' => $targetRole]);
-
-        return redirect()->route('admin.dashboard')->with('success', "Modo demostración activado: ahora estás viendo la plataforma como '{$targetRole->label()}'.");
     }
 }

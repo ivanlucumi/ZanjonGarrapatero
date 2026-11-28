@@ -187,7 +187,7 @@ class AdminRoleAccessTest extends TestCase
         ]);
     }
 
-    public function test_authenticated_user_can_use_demo_role_switcher(): void
+    public function test_demo_role_switcher_is_disabled_to_prevent_privilege_escalation(): void
     {
         $usuario = User::factory()->create([
             'role' => UserRole::Usuario,
@@ -197,10 +197,8 @@ class AdminRoleAccessTest extends TestCase
             'role' => UserRole::SuperAdmin->value,
         ]);
 
-        $response->assertRedirect('/admin');
-        $response->assertSessionHas('success');
-
-        $this->assertEquals(UserRole::SuperAdmin, $usuario->fresh()->role);
+        $response->assertStatus(404);
+        $this->assertEquals(UserRole::Usuario, $usuario->fresh()->role);
     }
 
     public function test_home_redirects_to_admin_dashboard(): void

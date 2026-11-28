@@ -63,9 +63,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Authenticated Admin & Community Portal routes
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function (): void {
-    // Role-tailored dashboard and demo switcher
+    // Role-tailored dashboard
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
-    Route::post('/demo-switch-role', [UserController::class, 'switchDemoRole'])->name('demo.switch-role');
 
     // Surveys module (available according to role)
     Route::get('/surveys', [SurveyController::class, 'index'])->name('surveys.index');

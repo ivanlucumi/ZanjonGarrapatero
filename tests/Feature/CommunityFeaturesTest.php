@@ -258,34 +258,17 @@ class CommunityFeaturesTest extends TestCase
         $this->assertStringEndsWith('.sql', $files[0]);
     }
 
-    public function test_allowed_domain_middleware_blocks_unauthorized_domain_in_black_screen(): void
+    public function test_security_headers_are_applied_and_domain_restriction_is_removed(): void
     {
-        Config::set('allowed_domain.enabled', true);
+        $response = $this->get('http://consejozanjondegarrapatero.org/');
+        $response->assertStatus(200);
+        $response->assertHeader('X-Frame-Options', 'SAMEORIGIN');
+        $response->assertHeader('X-Content-Type-Options', 'nosniff');
+        $response->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+        $response->assertHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
 
-        // Dominio principal en producción y cualquier subdominio siempre permitidos -> HTTP 200
-        $this->assertContains('consejozanjondegarrapatero.org', config('allowed_domain.domains'));
-        $this->get('http://consejozanjondegarrapatero.org/')->assertStatus(200);
-        $this->get('http://portal.consejozanjondegarrapatero.org/')->assertStatus(200);
-        $this->get('http://admin.consejozanjondegarrapatero.org/')->assertStatus(200);
-
-        // Un dominio similar sin punto separador sigue bloqueado
-        $this->get('http://fakeconsejozanjondegarrapatero.org/')->assertStatus(403);
-
-        Config::set('allowed_domain.domains', ['zanjongarrapatero.gov.co', 'localhost']);
-
-        // Dominio permitido -> HTTP 200
-        $this->get('http://localhost/')->assertStatus(200);
-
-        // Dominio local de Laragon con puerto -> HTTP 200
-        Config::set('allowed_domain.domains', ['zanjongarrapatero.test', 'localhost']);
-        $this->get('http://zanjongarrapatero.test:8090/')->assertStatus(200);
-
-        // Dominio no autorizado -> HTTP 403 con pantalla negra y bloqueo de acciones
-        $blocked = $this->get('http://clon-malicioso.com/');
-        $blocked->assertStatus(403);
-        $blocked->assertSee('#000000', false);
-        $blocked->assertSee('pointer-events: none', false);
-        $blocked->assertSee('Dominio no autorizado');
+        // Cualquier otro dominio o subdominio también responde sin bloqueo de dominio
+        $this->get('http://cualquier-otro-dominio.com/')->assertStatus(200);
     }
 
     public function test_seo_favicon_opengraph_sitemap_and_topbar_removal(): void
